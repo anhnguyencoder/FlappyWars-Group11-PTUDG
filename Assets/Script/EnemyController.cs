@@ -36,6 +36,8 @@ public class EnemyController : MonoBehaviour
        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
        BulletController bulletController = bullet.GetComponent<BulletController>();
        bulletController.SetDirection(Vector2.left);//ban tu phai qua trai
+       bulletController.bulletType = BulletController.BulletType.EnemyBullet;
+
     }
     public void Die()
     {
