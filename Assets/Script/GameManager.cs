@@ -34,24 +34,35 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-
-
-        // // Giới hạn currentEnemyLevel trong phạm vi hợp lệ
-        // currentEnemyLevel = Mathf.Clamp(currentEnemyLevel, 1, enemyPrefabs.Length);
-
-        // Kiểm tra lại sau khi Clamp
-        if (currentEnemyLevel - 1 < 0 || currentEnemyLevel - 1 >= enemyPrefabs.Length)
+        if (enemyPrefabs == null || enemyPrefabs.Length == 0)
         {
-            Debug.LogError("currentEnemyLevel is out of bounds or enemyPrefabs is not set properly!");
+            Debug.LogError("Enemy Prefabs array is not assigned or is empty in the GameManager!");
             return;
         }
-        
-        EnemyType type = (EnemyType)(currentEnemyLevel - 1); // Lấy loại Enemy dựa trên cấp độ
-        GameObject enemyPrefab = enemyPrefabs[currentEnemyLevel - 1]; // Lấy Prefab tương ứng
+
+        // Lấy prefab của Enemy
+        GameObject enemyPrefab = enemyPrefabs[currentEnemyLevel - 1];
+        if (enemyPrefab == null)
+        {
+            Debug.LogError($"Enemy prefab at index {currentEnemyLevel - 1} is null!");
+            return;
+        }
+
+        // Tạo Enemy
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemyController.enemyType = type; // Gán loại bắn cho Enemy
+
+        if (enemyController == null)
+        {
+            Debug.LogError("Spawned enemy does not have an EnemyController script!");
+            return;
+        }
+
+        // Không thay đổi giá trị enemyType - sử dụng giá trị từ prefab
+        Debug.Log($"Spawned enemy with type: {enemyController.enemyType}");
     }
+
+
 
     void Update()
     {

@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3425401368848812847}
   - component: {fileID: 4888101738347699927}
   m_Layer: 0
-  m_Name: Enemy3
+  m_Name: Enemy0 10
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,6 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4499768446204486837, guid: 572eb5cbdcba7f34fb41ea39e494cd6c, type: 3}
   bulletSpawnPoint: {fileID: 211203041208252192}
-  enemyType: 3
+  enemyType: 0
   moveSpeed: 2
   moveInterval: 2
