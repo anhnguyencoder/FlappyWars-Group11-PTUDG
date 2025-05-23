@@ -170,6 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4499768446204486837, guid: 572eb5cbdcba7f34fb41ea39e494cd6c, type: 3}
   bulletSpawnPoint: {fileID: 5490107606183113114}
-  shootInterval: 1
+  enemyType: 2
   moveSpeed: 2
   moveInterval: 2

@@ -1,17 +1,20 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class BulletController : MonoBehaviour
 {
-    
-// Tốc độ bay của viên đạn
-    public float speed = 10f;
-    private Vector2 direction;//huong di chuyen cua vien dan
-    
+    public float speed = 10f; // Tốc độ đạn
+    private Vector2 direction; // Hướng di chuyển của viên đạn
+    public bool isSinWave = false; // Quỹ đạo hình sin
+    public bool isZigzag = false; // Quỹ đạo zigzag
+    public bool isExplosive = false; // Đạn nổ
+    private Transform homingTarget; // Mục tiêu tự dẫn
+    public float sinAmplitude = 1f; // Biên độ hình sin
+    public float sinFrequency = 2f; // Tần số hình sin
+    private float sinTime = 0f; // Thời gian để tính sin
+    private float zigzagDirection = 1f; // Hướng zigzag
+
     
     public enum BulletType
     {
@@ -19,38 +22,62 @@ public class BulletController : MonoBehaviour
         EnemyBullet
     }
 
-    public BulletType bulletType;
+    public BulletType bulletType; // Thuộc tính xác định loại đạn
+
     
-//ham thiet lap huong cho vien dan
     public void SetDirection(Vector2 newDirection)
     {
-        direction = newDirection.normalized;// đảm bảo hướng được chuẩn hóa
-        
+        direction = newDirection.normalized; // Đảm bảo hướng được chuẩn hóa
     }
-    // Update is called once per frame
+
+    public void SetHomingTarget(Transform target)
+    {
+        homingTarget = target;
+    }
+
     void Update()
     {
-        //di chuyen theo huong
-        transform.position += (Vector3)direction * speed * Time.deltaTime;
+        if (isSinWave)
+        {
+            sinTime += Time.deltaTime;
+            float sinOffset = Mathf.Sin(sinTime * sinFrequency) * sinAmplitude;
+            transform.position += (Vector3)direction * speed * Time.deltaTime;
+            transform.position += new Vector3(0, sinOffset, 0);
+        }
+        else if (isZigzag)
+        {
+            float zigzagOffset = Mathf.Sin(Time.time * sinFrequency) * sinAmplitude;
+            transform.position += (Vector3)direction * speed * Time.deltaTime;
+            transform.position += new Vector3(0, zigzagOffset * zigzagDirection, 0);
+        }
+        else if (homingTarget != null)
+        {
+            Vector2 homingDirection = (homingTarget.position - transform.position).normalized;
+            transform.position += (Vector3)homingDirection * speed * Time.deltaTime;
+        }
+        else
+        {
+            transform.position += (Vector3)direction * speed * Time.deltaTime;
+        }
     }
-    // Hủy viên đạn khi nó ra khỏi màn hình
+
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        Destroy(gameObject); // Hủy viên đạn khi ra khỏi màn hình
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Kiểm tra nếu viên đạn chạm vào player hoặc enemy 
-        if (bulletType == BulletType.EnemyBullet && other.CompareTag("Player"))
+        if (bulletType == BulletType.PlayerBullet && other.CompareTag("Enemy"))
         {
-           other.GetComponent<PlayerController>().Die();//player bi tieu diet
+            other.GetComponent<EnemyController>().Die();
             Destroy(gameObject);
         }
-        else if(bulletType == BulletType.PlayerBullet &&  other.CompareTag("Enemy"))
+        else if (bulletType == BulletType.EnemyBullet && other.CompareTag("Player"))
         {
-            other.GetComponent<EnemyController>().Die();//enemy bi tieu diet
+            other.GetComponent<PlayerController>().Die();
             Destroy(gameObject);
         }
     }
+
 }

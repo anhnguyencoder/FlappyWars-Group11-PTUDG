@@ -756,9 +756,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3126e4d07feec5f4c89f6d2fd0ae9eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy1Prefab: {fileID: 3429972059154173144, guid: 0210c02e4cf9e0d45942a192384e95dc, type: 3}
-  enemy2Prefab: {fileID: 7942846707483745400, guid: 4d7687268657f42438ea95d5039013cd, type: 3}
-  enemy3Prefab: {fileID: 7705553865360469077, guid: bc47373195590a7409086285c16ce422, type: 3}
+  enemyPrefabs:
+  - {fileID: 7705553865360469077, guid: cb071fe0203ac3f41af8c4e1d177a23c, type: 3}
+  - {fileID: 3429972059154173144, guid: 0210c02e4cf9e0d45942a192384e95dc, type: 3}
+  - {fileID: 7942846707483745400, guid: 4d7687268657f42438ea95d5039013cd, type: 3}
+  - {fileID: 7705553865360469077, guid: bc47373195590a7409086285c16ce422, type: 3}
+  - {fileID: 7705553865360469077, guid: 0354e8cc4e317474b9186f4cb1c6c6bb, type: 3}
+  - {fileID: 7705553865360469077, guid: 4d0e50298dc5a164e81def08af378e49, type: 3}
+  - {fileID: 7705553865360469077, guid: e746225d083ea2343a427f8c075e9751, type: 3}
+  - {fileID: 7705553865360469077, guid: 5da4065bda5eec948bcb732cd2f7b290, type: 3}
+  - {fileID: 7705553865360469077, guid: c946c5304ca52d64f9b2c038c8fc4481, type: 3}
+  - {fileID: 7705553865360469077, guid: cd49c2fddd5fab34582d39a87d2e7684, type: 3}
   spawnPoint: {fileID: 848168897}
 --- !u!4 &1866647147
 Transform:

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -6,20 +5,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public static GameManager Instance;
-    public GameObject enemy1Prefab;
-    public GameObject enemy2Prefab;
-    public GameObject enemy3Prefab;
-
-    public Transform spawnPoint;//diem sinh enemy
-    private int enemiesKilled = 0;//so luong enemy bi tieu diet
-    private int currentEnemyLevel = 1;//level cua enemy hien tai
+    public GameObject[] enemyPrefabs; // Mảng chứa Prefab của các loại Enemy
+    public Transform spawnPoint; // Điểm sinh Enemy
+    private int currentEnemyLevel = 1; // Cấp độ hiện tại của Enemy
 
     private void Awake()
     {
         Instance = this;
     }
+
     void Start()
     {
         SpawnEnemy();
@@ -27,10 +22,11 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled()
     {
-        enemiesKilled++;
-        if (enemiesKilled % 10 == 0)
+        // Tăng cấp độ mỗi khi tiêu diệt kẻ địch
+        currentEnemyLevel++;
+        if (currentEnemyLevel > enemyPrefabs.Length)
         {
-            currentEnemyLevel++;
+            currentEnemyLevel = enemyPrefabs.Length; // Giới hạn cấp độ
         }
 
         SpawnEnemy();
@@ -38,33 +34,27 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        GameObject enemyPrefab;
-        switch (currentEnemyLevel)
-        {
-            case 1:
-                enemyPrefab =  enemy1Prefab;
-                break;
-            case 2:
-                enemyPrefab = enemy2Prefab;
-                break;
-            case 3:
-                enemyPrefab = enemy3Prefab;
-                break;
-            default:
-                return;//khong sinh ra neu vuot qua cap 3
-            
-            
-        }
 
+
+        // // Giới hạn currentEnemyLevel trong phạm vi hợp lệ
+        // currentEnemyLevel = Mathf.Clamp(currentEnemyLevel, 1, enemyPrefabs.Length);
+
+        // Kiểm tra lại sau khi Clamp
+        if (currentEnemyLevel - 1 < 0 || currentEnemyLevel - 1 >= enemyPrefabs.Length)
+        {
+            Debug.LogError("currentEnemyLevel is out of bounds or enemyPrefabs is not set properly!");
+            return;
+        }
+        
+        EnemyType type = (EnemyType)(currentEnemyLevel - 1); // Lấy loại Enemy dựa trên cấp độ
+        GameObject enemyPrefab = enemyPrefabs[currentEnemyLevel - 1]; // Lấy Prefab tương ứng
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        enemyController.shootInterval = currentEnemyLevel;
+        enemyController.enemyType = type; // Gán loại bắn cho Enemy
     }
-   
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Logic khác của GameManager (nếu cần)
     }
 }
