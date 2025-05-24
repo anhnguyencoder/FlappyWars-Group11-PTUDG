@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
         SpawnEnemy();
     }
 
-    public void EnemyKilled()
+    public void EnemyKilled(EnemyType enemyType)
     {
+        PlayerController.Instance.SetShootingStyle(enemyType); // Cập nhật style bắn cho Player
         SpawnEnemy();
     }
 

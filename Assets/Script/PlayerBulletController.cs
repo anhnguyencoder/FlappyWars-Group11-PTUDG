@@ -26,7 +26,12 @@ public class PlayerBulletController : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyController>().Die();
+            EnemyController enemyController = other.GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                GameManager.Instance.EnemyKilled(enemyController.enemyType);
+            }
+            Destroy(other.gameObject);
             Destroy(gameObject);
         }
     }

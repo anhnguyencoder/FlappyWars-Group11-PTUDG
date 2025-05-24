@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using Random = Unity.Mathematics.Random;
 
 public enum EnemyType
 {
@@ -10,7 +9,7 @@ public enum EnemyType
     Spread,
     Circular,
     Burst,
-    // Homing,
+    Homing,
     Spiral,
     Random
 }
@@ -51,15 +50,14 @@ public class EnemyController : MonoBehaviour
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
                 break;
-            // case EnemyType.Homing:
-            //     ShootHoming();
-            //     break;
+            case EnemyType.Homing:
+                ShootHoming();
+                break;
             case EnemyType.Spiral:
                 StartCoroutine(ShootSpiral());
                 break;
             case EnemyType.Random:
-                CancelInvoke(nameof(Shoot));
-                InvokeRepeating(nameof(ShootRandom), 0f, 0.1f); // Tăng tần số bắn cho kiểu Random
+                ShootRandom();
                 break;
         }
     }
@@ -112,12 +110,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // void ShootHoming()
-    // {
-    //     GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-    //     EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
-    //     bulletController.SetHomingTarget(GameObject.FindWithTag("Player").transform);
-    // }
+    void ShootHoming()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
+        bulletController.SetHomingTarget(GameObject.FindWithTag("Player").transform);
+    }
 
     IEnumerator ShootSpiral()
     {
@@ -152,6 +150,6 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-        GameManager.Instance.EnemyKilled();
+        GameManager.Instance.EnemyKilled(enemyType);
     }
 }
