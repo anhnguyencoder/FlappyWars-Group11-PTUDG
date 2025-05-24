@@ -6,9 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameObject[] enemyPrefabs; // Mảng chứa Prefab của các loại Enemy
+    public GameObject enemyPrefab; // Một Prefab duy nhất cho Enemy
     public Transform spawnPoint; // Điểm sinh Enemy
-    private int currentEnemyLevel = 1; // Cấp độ hiện tại của Enemy
 
     private void Awake()
     {
@@ -22,33 +21,18 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled()
     {
-        // Tăng cấp độ mỗi khi tiêu diệt kẻ địch
-        currentEnemyLevel++;
-        if (currentEnemyLevel > enemyPrefabs.Length)
-        {
-            currentEnemyLevel = enemyPrefabs.Length; // Giới hạn cấp độ
-        }
-
         SpawnEnemy();
     }
 
     void SpawnEnemy()
     {
-        if (enemyPrefabs == null || enemyPrefabs.Length == 0)
-        {
-            Debug.LogError("Enemy Prefabs array is not assigned or is empty in the GameManager!");
-            return;
-        }
-
-        // Lấy prefab của Enemy
-        GameObject enemyPrefab = enemyPrefabs[currentEnemyLevel - 1];
         if (enemyPrefab == null)
         {
-            Debug.LogError($"Enemy prefab at index {currentEnemyLevel - 1} is null!");
+            Debug.LogError("Enemy Prefab is not assigned in the GameManager!");
             return;
         }
 
-        // Tạo Enemy
+        // Tạo Enemy mới
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
 
@@ -58,14 +42,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Không thay đổi giá trị enemyType - sử dụng giá trị từ prefab
+        // Random loại bắn cho enemy
+        enemyController.enemyType = (EnemyType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(EnemyType)).Length);
         Debug.Log($"Spawned enemy with type: {enemyController.enemyType}");
-    }
-
-
-
-    void Update()
-    {
-        // Logic khác của GameManager (nếu cần)
     }
 }
