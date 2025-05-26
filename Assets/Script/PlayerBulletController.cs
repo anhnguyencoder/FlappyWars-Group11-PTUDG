@@ -15,11 +15,17 @@ public class PlayerBulletController : MonoBehaviour
     void Update()
     {
         transform.position += (Vector3)direction * speed * Time.deltaTime;
+
+        if (!IsVisibleOnScreen())
+        {
+            ObjectPool.Instance.ReturnBullet(gameObject);
+        }
     }
 
-    private void OnBecameInvisible()
+    private bool IsVisibleOnScreen()
     {
-        Destroy(gameObject); // Hủy viên đạn khi ra khỏi màn hình
+        Vector3 screenPosition = Camera.main.WorldToViewportPoint(transform.position);
+        return screenPosition.x > 0 && screenPosition.x < 1 && screenPosition.y > 0 && screenPosition.y < 1;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -27,12 +33,12 @@ public class PlayerBulletController : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyController enemyController = other.GetComponent<EnemyController>();
+            Destroy(other.gameObject);
             if (enemyController != null)
             {
                 GameManager.Instance.EnemyKilled(enemyController.enemyType);
             }
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+            ObjectPool.Instance.ReturnBullet(gameObject);
         }
     }
 }

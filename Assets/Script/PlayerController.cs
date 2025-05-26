@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     public float jumpForce = 9f; // Lực nhảy lên
     private Rigidbody2D rb;
-    public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     private EnemyType currentShootingStyle = EnemyType.Straight; // Mặc định kiểu bắn ban đầu
 
@@ -75,7 +74,10 @@ public class PlayerController : MonoBehaviour
 
     void ShootStraight()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.GetBullet();
+        bullet.transform.position = bulletSpawnPoint.position;
+        bullet.transform.rotation = Quaternion.identity;
+
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(Vector2.right);
     }
@@ -90,7 +92,10 @@ public class PlayerController : MonoBehaviour
 
         foreach (Vector2 direction in directions)
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            GameObject bullet = ObjectPool.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
         }
@@ -103,7 +108,11 @@ public class PlayerController : MonoBehaviour
         {
             float angle = i * Mathf.PI * 2 / bulletsCount;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+
+            GameObject bullet = ObjectPool.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
         }
@@ -114,16 +123,23 @@ public class PlayerController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            GameObject bullet = ObjectPool.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(Vector2.right);
+
             yield return new WaitForSeconds(0.2f);
         }
     }
 
     void ShootHoming()
     {
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.GetBullet();
+        bullet.transform.position = bulletSpawnPoint.position;
+        bullet.transform.rotation = Quaternion.identity;
+
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(Vector2.right); // Homing logic có thể thêm vào nếu cần
     }
@@ -135,9 +151,14 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < bulletsCount; i++)
         {
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+
+            GameObject bullet = ObjectPool.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
+
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
@@ -146,8 +167,16 @@ public class PlayerController : MonoBehaviour
     void ShootRandom()
     {
         Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.GetBullet();
+        bullet.transform.position = bulletSpawnPoint.position;
+        bullet.transform.rotation = Quaternion.identity;
+
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(randomDirection);
+    }
+    public void Die()
+    {
+        Debug.Log("Player is dead!");
+        // Thêm logic xử lý khi Player chết, như reset game hoặc giảm mạng sống
     }
 }
