@@ -14,13 +14,13 @@ public class PlayerController : MonoBehaviour
 
     private Dictionary<EnemyType, float> shootingCooldowns = new Dictionary<EnemyType, float>
     {
-        { EnemyType.Straight, 0.5f },
-        { EnemyType.Spread, 0.5f },
-        { EnemyType.Circular, 0.5f },
-        { EnemyType.Burst, 1.5f },
-        { EnemyType.Homing, 0.8f },
-        { EnemyType.Spiral, 2.5f },
-        { EnemyType.Random, 0.1f }
+        { EnemyType.Straight, 0.5f },//bắn thẳng
+        { EnemyType.Spread, 0.5f },// bắn 3 hướng
+        { EnemyType.Circular, 0.5f },//bắn 8 hướng
+        { EnemyType.Burst, 1.5f },//bắn theo đợt 
+        
+        { EnemyType.Spiral, 2.5f },//bắn xoắn ốc
+        { EnemyType.Random, 0.1f }//bắn ngẫu nhiên hướng
     };
     void Awake()
     {
@@ -74,9 +74,7 @@ public class PlayerController : MonoBehaviour
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
                 break;
-            case EnemyType.Homing:
-                ShootHoming();
-                break;
+            
             case EnemyType.Spiral:
                 StartCoroutine(ShootSpiral());
                 break;
@@ -153,15 +151,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ShootHoming()
-    {
-        GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = Quaternion.identity;
-
-        PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
-        bulletController.SetDirection(Vector2.right); // Homing logic có thể thêm vào nếu cần
-    }
+    
 
     IEnumerator ShootSpiral()
     {

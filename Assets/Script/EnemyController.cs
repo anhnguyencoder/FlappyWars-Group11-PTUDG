@@ -9,7 +9,7 @@ public enum EnemyType
     Spread,
     Circular,
     Burst,
-    Homing,
+   
     Spiral,
     Random
 }
@@ -49,9 +49,7 @@ public class EnemyController : MonoBehaviour
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
                 break;
-            case EnemyType.Homing:
-                ShootHoming();
-                break;
+            
             case EnemyType.Spiral:
                 StartCoroutine(ShootSpiral());
                 break;
@@ -123,15 +121,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void ShootHoming()
-    {
-        GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = Quaternion.identity;
-
-        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
-        bulletController.SetDirection(Vector2.left); // Homing logic có thể thêm vào nếu cần
-    }
+ 
 
     IEnumerator ShootSpiral()
     {
