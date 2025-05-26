@@ -9,7 +9,7 @@ public enum EnemyType
     Spread,
     Circular,
     Burst,
-   
+
     Spiral,
     Random
 }
@@ -22,8 +22,11 @@ public class EnemyController : MonoBehaviour
     public float moveInterval = 2f;
     private float targetY;
 
+    private Animator animator; // Tham chiếu tới Animator
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         InvokeRepeating(nameof(Shoot), 1f, 2f);
         InvokeRepeating(nameof(ChangeDirection), 0f, moveInterval);
     }
@@ -49,7 +52,7 @@ public class EnemyController : MonoBehaviour
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
                 break;
-            
+
             case EnemyType.Spiral:
                 StartCoroutine(ShootSpiral());
                 break;
@@ -71,7 +74,8 @@ public class EnemyController : MonoBehaviour
 
     void ShootSpread()
     {
-        Vector2[] directions = {
+        Vector2[] directions =
+        {
             new Vector2(-1, -0.5f).normalized,
             Vector2.left,
             new Vector2(-1, 0.5f).normalized
@@ -121,7 +125,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
- 
 
     IEnumerator ShootSpiral()
     {
@@ -145,8 +148,8 @@ public class EnemyController : MonoBehaviour
 
     void ShootRandom()
     {
-        
-        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f))
+            .normalized;
         GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
@@ -164,9 +167,24 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        if (animator != null)
+        {
+            animator.SetTrigger("Die"); // Kích hoạt trạng thái Die
+          
+        }
+        else
+        {
+            Destroy(gameObject); // Hủy ngay nếu không có Animator
+        }
+
         GameManager.Instance.EnemyKilled(enemyType);
-        Destroy(gameObject);
+       
         // Tăng điểm cho người chơi
-            UIManager.Instance.AddScore(1);
+        UIManager.Instance.AddScore(1);
     }
+   // Hàm này được gọi từ Animation Event
+public void DestroyAfterAnimation()
+{
+    Destroy(gameObject);
+}
 }

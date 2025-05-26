@@ -33,10 +33,10 @@
             if (other.CompareTag("Enemy"))
             {
                 EnemyController enemyController = other.GetComponent<EnemyController>();
-                Destroy(other.gameObject);
+         
                 if (enemyController != null)
                 {
-                    enemyController.Die();
+                   enemyController.Die();
                 }
                 ObjectPoolForPlayer.Instance.ReturnBullet(gameObject);
             }

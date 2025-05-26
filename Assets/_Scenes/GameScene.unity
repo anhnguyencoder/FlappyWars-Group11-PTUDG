@@ -1487,6 +1487,7 @@ GameObject:
   - component: {fileID: 1472187264}
   - component: {fileID: 1472187268}
   - component: {fileID: 1472187269}
+  - component: {fileID: 1472187270}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1627,6 +1628,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4499768446204486837, guid: 7c712f47eba7cc3428b4d408432b416a, type: 3}
   poolSize: 20
+--- !u!95 &1472187270
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472187263}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2f10fe7765368fe4eb7283d444aab727, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1556718244
 GameObject:
   m_ObjectHideFlags: 0

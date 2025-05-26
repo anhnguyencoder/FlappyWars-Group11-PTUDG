@@ -137,9 +137,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  isSinWave: 0
-  isZigzag: 0
-  isExplosive: 0
-  sinAmplitude: 1
-  sinFrequency: 2
-  bulletType: 0
