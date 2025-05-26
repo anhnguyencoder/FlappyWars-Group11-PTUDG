@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -12,8 +13,27 @@ public class UIManager : MonoBehaviour
 
     [Header("Score UI")]
     public TextMeshProUGUI scoreText;
-
+    
+    [Header("Health UI")]
+    public TextMeshProUGUI healthText;
+    
+    [Header("Game Over UI")]
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI highScoreText;
+    public Button restartButton;
+    public Button mainMenuButton;
+    
+    [Header("Main Menu UI")]
+    public GameObject mainMenuPanel;
+    public Button startGameButton;
+    
+    
+    
     private int score = 0; // Điểm số của người chơi
+    public int health = 3;
+    private int highScore = 0;
+    private bool isGameStarted = false;
 
     void Awake()
     {
@@ -29,9 +49,37 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        UpdateScoreUI(); // Cập nhật UI điểm số khi bắt đầu
-    }
+       
 
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        UpdateUI();
+        
+       
+        if (!isGameStarted)
+        {
+            mainMenuPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            mainMenuPanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        
+        
+        gameOverPanel.SetActive(false);
+        
+        restartButton.onClick.AddListener(RestartGame);
+        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        startGameButton.onClick.AddListener(StartGame);
+    }
+    public void StartGame()
+    {
+        mainMenuPanel.SetActive(false);
+        Time.timeScale = 1; // Bắt đầu game
+        isGameStarted = true;
+        
+    }
     // Cập nhật UI cooldown
     public void UpdateCooldownUI(float currentCooldown, float maxCooldown)
     {
@@ -49,16 +97,62 @@ public class UIManager : MonoBehaviour
     // Tăng điểm và cập nhật UI
     public void AddScore(int points)
     {
+        if (!isGameStarted) return;
         score += points;
-        UpdateScoreUI();
+        if (score % 10 == 0 && health < 3)
+        {
+            health++;
+        }
+        UpdateUI();
     }
 
-    // Cập nhật UI điểm số
-    private void UpdateScoreUI()
+    public void TakeDamage()
     {
-        if (scoreText != null)
+        if (!isGameStarted) return;
+        health--;
+        UpdateUI();
+        if (health <= 0)
         {
-            scoreText.text = "Score: " + score;
+            GameOver();
         }
+    }
+    
+    // Cập nhật UI điểm số
+    private void UpdateUI()
+    {
+        scoreText.text = "Score: " + score;
+        healthText.text = "Health: " + health;
+    }
+    
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        finalScoreText.text = "Final Score: " + score;
+        Time.timeScale = 0; // Dừng game khi thua
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("HighScore", highScore);
+        }
+        
+        highScoreText.text = "High Score:" + highScore;
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        
+        isGameStarted = true; // Xác định rằng game đã bắt đầu
+    }
+    
+    public void ReturnToMainMenu()
+    {
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //coi như game chưa bắt đầu
+        PlayerPrefs.SetInt("IsGameStarted", 0);
+
     }
 }

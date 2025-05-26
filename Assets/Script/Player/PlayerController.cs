@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
+    private int health = 3;
     public float jumpForce = 9f; // Lực nhảy lên
     private Rigidbody2D rb;
     public Transform bulletSpawnPoint;
@@ -36,6 +37,14 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+    public void TakeDamage()
+    {
+        UIManager.Instance.TakeDamage();
+        if (UIManager.Instance.health <= 0)
+        {
+            Die();
+        }
     }
 
     void Update()
@@ -188,8 +197,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        Debug.Log("Player is dead!");
-        // Thêm logic xử lý khi Player chết, như reset game hoặc giảm mạng sống
+        gameObject.SetActive(false);
+        UIManager.Instance.GameOver();
     }
     void UpdateCooldownUI()
     {
