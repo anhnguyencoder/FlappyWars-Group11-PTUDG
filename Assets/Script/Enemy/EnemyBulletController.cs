@@ -32,7 +32,8 @@ public class EnemyBulletController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().Die();
+            Debug.Log("dính đạn");
+            other.GetComponent<PlayerController>().TakeDamage();
             ObjectPoolForEnemy.Instance.ReturnBullet(gameObject);
         }
     }
