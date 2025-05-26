@@ -166,5 +166,7 @@ public class EnemyController : MonoBehaviour
     {
         GameManager.Instance.EnemyKilled(enemyType);
         Destroy(gameObject);
+        // Tăng điểm cho người chơi
+            UIManager.Instance.AddScore(1);
     }
 }

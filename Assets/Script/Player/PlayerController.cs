@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
+        
+        // Cập nhật UI cooldown
+        UpdateCooldownUI();
     }
 
     void Shoot()
@@ -187,5 +190,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player is dead!");
         // Thêm logic xử lý khi Player chết, như reset game hoặc giảm mạng sống
+    }
+    void UpdateCooldownUI()
+    {
+        float cooldown = shootingCooldowns[currentShootingStyle];
+        float timeSinceLastShoot = Time.time - lastShootTime;
+        float timeLeft = Mathf.Max(0, cooldown - timeSinceLastShoot);
+
+        // Gọi UIManager để cập nhật UI
+        UIManager.Instance.UpdateCooldownUI(timeLeft, cooldown);
     }
 }
