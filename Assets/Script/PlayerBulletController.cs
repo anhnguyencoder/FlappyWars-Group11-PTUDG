@@ -18,7 +18,7 @@ public class PlayerBulletController : MonoBehaviour
 
         if (!IsVisibleOnScreen())
         {
-            ObjectPool.Instance.ReturnBullet(gameObject);
+            ObjectPoolForPlayer.Instance.ReturnBullet(gameObject);
         }
     }
 
@@ -36,9 +36,9 @@ public class PlayerBulletController : MonoBehaviour
             Destroy(other.gameObject);
             if (enemyController != null)
             {
-                GameManager.Instance.EnemyKilled(enemyController.enemyType);
+                enemyController.Die();
             }
-            ObjectPool.Instance.ReturnBullet(gameObject);
+            ObjectPoolForPlayer.Instance.ReturnBullet(gameObject);
         }
     }
 }

@@ -63,11 +63,11 @@ public class EnemyController : MonoBehaviour
 
     void ShootStraight()
     {
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
-        PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
         bulletController.SetDirection(Vector2.left);
     }
 
@@ -81,11 +81,11 @@ public class EnemyController : MonoBehaviour
 
         foreach (Vector2 direction in directions)
         {
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
-            PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+            EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
         }
     }
@@ -98,11 +98,11 @@ public class EnemyController : MonoBehaviour
             float angle = i * Mathf.PI * 2 / bulletsCount;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
-            PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+            EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
         }
     }
@@ -112,11 +112,11 @@ public class EnemyController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
-            PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+            EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(Vector2.left);
 
             yield return new WaitForSeconds(0.2f);
@@ -125,11 +125,11 @@ public class EnemyController : MonoBehaviour
 
     void ShootHoming()
     {
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
-        PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
         bulletController.SetDirection(Vector2.left); // Homing logic có thể thêm vào nếu cần
     }
 
@@ -141,11 +141,11 @@ public class EnemyController : MonoBehaviour
         {
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
-            PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+            EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
 
             angle += Mathf.PI / 10;
@@ -157,11 +157,11 @@ public class EnemyController : MonoBehaviour
     {
         
         Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
-        PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
         bulletController.SetDirection(randomDirection);
     }
 
@@ -174,7 +174,7 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
         GameManager.Instance.EnemyKilled(enemyType);
+        Destroy(gameObject);
     }
 }

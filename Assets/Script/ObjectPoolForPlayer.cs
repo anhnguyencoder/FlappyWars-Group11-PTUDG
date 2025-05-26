@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPoolForPlayer : MonoBehaviour
 {
-    public static ObjectPool Instance;
+    public static ObjectPoolForPlayer Instance;
     public GameObject bulletPrefab;
     public int poolSize = 20;
 

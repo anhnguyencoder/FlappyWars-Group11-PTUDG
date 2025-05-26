@@ -10,7 +10,18 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public Transform bulletSpawnPoint;
     private EnemyType currentShootingStyle = EnemyType.Straight; // Mặc định kiểu bắn ban đầu
+    private float lastShootTime = 0f; // Thời điểm bắn lần cuối
 
+    private Dictionary<EnemyType, float> shootingCooldowns = new Dictionary<EnemyType, float>
+    {
+        { EnemyType.Straight, 0.5f },
+        { EnemyType.Spread, 0.5f },
+        { EnemyType.Circular, 0.5f },
+        { EnemyType.Burst, 1.5f },
+        { EnemyType.Homing, 0.8f },
+        { EnemyType.Spiral, 2.5f },
+        { EnemyType.Random, 0.1f }
+    };
     void Awake()
     {
         Instance = this;
@@ -41,6 +52,14 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
+        float cooldown = shootingCooldowns[currentShootingStyle];
+        
+        // Kiểm tra thời gian cooldown
+        if (Time.time - lastShootTime < cooldown)
+        {
+            return; // Chưa đủ thời gian, không bắn
+        }
+        lastShootTime = Time.time; // Cập nhật thời điểm bắn
         switch (currentShootingStyle)
         {
             case EnemyType.Straight:
@@ -74,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     void ShootStraight()
     {
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
@@ -92,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (Vector2 direction in directions)
         {
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
@@ -109,7 +128,7 @@ public class PlayerController : MonoBehaviour
             float angle = i * Mathf.PI * 2 / bulletsCount;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
@@ -123,7 +142,7 @@ public class PlayerController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
@@ -136,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
     void ShootHoming()
     {
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
@@ -152,7 +171,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-            GameObject bullet = ObjectPool.Instance.GetBullet();
+            GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
 
@@ -167,7 +186,7 @@ public class PlayerController : MonoBehaviour
     void ShootRandom()
     {
         Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
-        GameObject bullet = ObjectPool.Instance.GetBullet();
+        GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 

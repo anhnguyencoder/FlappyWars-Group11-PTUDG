@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 1472187265}
   - component: {fileID: 1472187264}
   - component: {fileID: 1472187268}
+  - component: {fileID: 1472187269}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -590,8 +591,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 5
-  bulletPrefab: {fileID: 4499768446204486837, guid: 7c712f47eba7cc3428b4d408432b416a, type: 3}
   bulletSpawnPoint: {fileID: 309711582}
+--- !u!114 &1472187269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472187263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558da64ee0191884caeb5256f9b2edc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4499768446204486837, guid: 7c712f47eba7cc3428b4d408432b416a, type: 3}
+  poolSize: 20
 --- !u!1 &1499816601
 GameObject:
   m_ObjectHideFlags: 0

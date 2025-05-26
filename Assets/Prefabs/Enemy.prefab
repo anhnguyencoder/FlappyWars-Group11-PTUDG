@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6978836531275599847}
   - component: {fileID: 3425401368848812847}
   - component: {fileID: 4888101738347699927}
+  - component: {fileID: 4752724971548834841}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -168,8 +169,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08608eea4611414e9ef1c83ae09f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4499768446204486837, guid: 572eb5cbdcba7f34fb41ea39e494cd6c, type: 3}
   bulletSpawnPoint: {fileID: 211203041208252192}
   enemyType: 0
   moveSpeed: 2
   moveInterval: 2
+--- !u!114 &4752724971548834841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705553865360469077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8393351f55a9b9449b8e140edac38723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4499768446204486837, guid: 572eb5cbdcba7f34fb41ea39e494cd6c, type: 3}
+  poolSize: 20
