@@ -24,10 +24,8 @@ public class UIManager : MonoBehaviour
     public Button restartButton;
     public Button mainMenuButton;
     
-    [Header("Main Menu UI")]
-    public GameObject mainMenuPanel;
-    public Button startGameButton;
-    
+ 
+   
     
     
     private int score = 0; // Điểm số của người chơi
@@ -53,33 +51,18 @@ public class UIManager : MonoBehaviour
 
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         UpdateUI();
-        
-       
-        if (!isGameStarted)
-        {
-            mainMenuPanel.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            mainMenuPanel.SetActive(false);
-            Time.timeScale = 1;
-        }
+        isGameStarted = true;
+
+        Time.timeScale = 1;
         
         
         gameOverPanel.SetActive(false);
         
         restartButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-        startGameButton.onClick.AddListener(StartGame);
+
     }
-    public void StartGame()
-    {
-        mainMenuPanel.SetActive(false);
-        Time.timeScale = 1; // Bắt đầu game
-        isGameStarted = true;
-        
-    }
+   
     // Cập nhật UI cooldown
     public void UpdateCooldownUI(float currentCooldown, float maxCooldown)
     {
@@ -140,7 +123,7 @@ public class UIManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("GameScene");
         
         
         isGameStarted = true; // Xác định rằng game đã bắt đầu
@@ -150,7 +133,7 @@ public class UIManager : MonoBehaviour
     {
 
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("MenuScene");
         //coi như game chưa bắt đầu
         PlayerPrefs.SetInt("IsGameStarted", 0);
 
