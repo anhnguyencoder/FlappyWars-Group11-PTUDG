@@ -53,6 +53,8 @@ public class EnemyController : MonoBehaviour
 
     void Shoot()
     {
+        if (isFrozen)
+            return; // Nếu đang freeze thì không bắn
         switch (enemyType)
         {
             case EnemyType.Straight:
@@ -132,6 +134,9 @@ public class EnemyController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
+            if (isFrozen)
+                yield break; // Dừng bắn nếu enemy đang freeze
+            
             GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
@@ -151,6 +156,8 @@ public class EnemyController : MonoBehaviour
         float angle = 0f;
         for (int i = 0; i < bulletsCount; i++)
         {
+            if (isFrozen)
+                yield break; // Dừng bắn nếu enemy đang freeze
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
             GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
