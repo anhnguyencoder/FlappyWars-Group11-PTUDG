@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-    private int health = 3;
+
     public float jumpForce = 9f; // Lực nhảy lên
     private Rigidbody2D rb;
     public Transform bulletSpawnPoint;
@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
         { EnemyType.Random, 0.1f }//bắn ngẫu nhiên hướng
     };
     
-    public float bulletSize = 1f;
-    public float playerSize = 1f;
+    public float bulletSize = 2f;
+    public float bodySize = 1f;
 
     void Awake()
     {
@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(Vector2.right);
+        bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
     }
 
     void ShootSpread()
@@ -139,6 +140,8 @@ public class PlayerController : MonoBehaviour
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
+            
+            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -156,6 +159,7 @@ public class PlayerController : MonoBehaviour
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
+            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -171,6 +175,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(Vector2.right);
 
+            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -192,6 +197,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
 
+            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
@@ -206,6 +212,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(randomDirection);
+        bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
     }
     public void Die()
     {
@@ -220,18 +227,14 @@ public class PlayerController : MonoBehaviour
 
         // Gọi UIManager để cập nhật UI
         UIManager.Instance.UpdateCooldownUI(timeLeft, cooldown);
+        
     }
-    //////////////
-    ///
-    public void ModifyBulletSize(float multiplier)
-    {
-        bulletSize *= multiplier;
-    }
+  
 
-    public void ModifyPlayerSize(float multiplier)
+    public void ModifyBodySize(float multiplier)
     {
-        playerSize *= multiplier;
-        transform.localScale = Vector3.one * playerSize;
+        bodySize *= multiplier;
+        transform.localScale = Vector3.one * bodySize;
     }
 
     public void ActivateShield(float duration)
@@ -252,7 +255,7 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amount)
     {
-        health += amount;
+        UIManager.Instance.health += amount;
     }
     public void Freeze(float duration)
     {
@@ -261,9 +264,22 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator FreezeCoroutine(float duration)
     {
-        float originalSpeed = playerSize;
-        playerSize = 0;
+        float originalSpeed = bodySize;
+        bodySize = 0;
         yield return new WaitForSeconds(duration);
-        playerSize = originalSpeed;
+        bodySize = originalSpeed;
+    }
+    // Hàm thay đổi kích thước đạn
+    public void ModifyBulletSize(float multiplier)
+    {
+        StopAllCoroutines(); // Dừng các coroutine cũ nếu có
+        StartCoroutine(BulletSizeCoroutine(multiplier, 3f)); // Kích hoạt coroutine
+    }
+    private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
+    {
+        float originalSize = 0.3229f;
+        bulletSize *= multiplier; // Tăng kích thước đạn
+        yield return new WaitForSeconds(duration); // Đợi trong 3 giây
+        bulletSize = originalSize; // Trả về kích thước ban đầu
     }
 }

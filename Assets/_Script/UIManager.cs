@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
     
     
     private int score = 0; // Điểm số của người chơi
-    public int health = 3;
+    public int health = 10;
     private int highScore = 0;
     private bool isGameStarted = false;
 

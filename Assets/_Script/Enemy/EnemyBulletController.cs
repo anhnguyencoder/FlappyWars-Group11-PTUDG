@@ -37,4 +37,9 @@ public class EnemyBulletController : MonoBehaviour
             ObjectPoolForEnemy.Instance.ReturnBullet(gameObject);
         }
     }
+    public void SetBulletSize(float sizeMultiplier)
+    {
+        transform.localScale = Vector3.one * sizeMultiplier;
+    }
+
 }

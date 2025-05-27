@@ -41,4 +41,10 @@
                 ObjectPoolForPlayer.Instance.ReturnBullet(gameObject);
             }
         }
+        //hàm thay đổi kích thước viên đạn
+        public void SetBulletSize(float sizeMultiplier)
+        {
+            transform.localScale = Vector3.one * sizeMultiplier;
+        }
+
     }

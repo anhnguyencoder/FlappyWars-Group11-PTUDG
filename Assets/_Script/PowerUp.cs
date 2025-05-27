@@ -7,10 +7,10 @@ public enum PowerUpType
 {
     BulletSizeX2,
     BulletSizeX3,
-    PlayerSizeX2,
+    BodySizeX2,
     Shield,
     Heal,
-    FreezeEnemy,
+    Freeze,
     Bomb
 }
 
@@ -55,8 +55,8 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.BulletSizeX3:
                     player.ModifyBulletSize(3);
                     break;
-                case PowerUpType.PlayerSizeX2:
-                    player.ModifyPlayerSize(2);
+                case PowerUpType.BodySizeX2:
+                    player.ModifyBodySize(2);
                     break;
                 case PowerUpType.Shield:
                     player.ActivateShield(3);
@@ -64,8 +64,8 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.Heal:
                     player.Heal(1);
                     break;
-                case PowerUpType.FreezeEnemy:
-                    GameManager.Instance.GetCurrentEnemy()?.Freeze(3);
+                case PowerUpType.Freeze:
+                    PlayerController.Instance.Freeze(3);
                     break;
                 case PowerUpType.Bomb:
                     Explode();
@@ -80,11 +80,18 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.BulletSizeX3:
                     enemy.ModifyBulletSize(type == PowerUpType.BulletSizeX2 ? 2 : 3);
                     break;
-                case PowerUpType.FreezeEnemy:
-                    PlayerController.Instance.Freeze(3);
+                
+                case PowerUpType.Freeze:
+                    GameManager.Instance.GetCurrentEnemy()?.Freeze(3);
+                    break;
+                case PowerUpType.BodySizeX2:
+                    enemy.ModifyBodySize(2);
                     break;
                 case PowerUpType.Bomb:
                     Explode();
+                    break;
+                case PowerUpType.Shield:
+                    enemy.ActivateShield(3);
                     break;
             }
         }
