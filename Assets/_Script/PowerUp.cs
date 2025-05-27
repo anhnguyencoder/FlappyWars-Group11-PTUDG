@@ -59,7 +59,7 @@ public class PowerUp : MonoBehaviour
                     player.ModifyBodySize(2);
                     break;
                 case PowerUpType.Shield:
-                    player.ActivateShield(3);
+                    player.ActivateShield(10);
                     break;
                 case PowerUpType.Heal:
                     player.Heal(1);
@@ -91,7 +91,7 @@ public class PowerUp : MonoBehaviour
                     Explode();
                     break;
                 case PowerUpType.Shield:
-                    enemy.ActivateShield(3);
+                    enemy.ActivateShield(10);
                     break;
             }
         }
