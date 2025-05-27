@@ -266,7 +266,13 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amount)
     {
-        UIManager.Instance.health += amount;
+        if (UIManager.Instance.health < UIManager.Instance.maxHealth)
+        {
+            UIManager.Instance.health += amount;
+            UIManager.Instance.UpdateUI();  
+        }
+        
+
     }
     public void Freeze(float duration)
     {

@@ -29,7 +29,9 @@ public class UIManager : MonoBehaviour
     
     
     private int score = 0; // Điểm số của người chơi
-    public int health = 10;
+    public int health = 100;
+    public int maxHealth=100;
+    
     private int highScore = 0;
     private bool isGameStarted = false;
 
@@ -101,7 +103,7 @@ public class UIManager : MonoBehaviour
     }
     
     // Cập nhật UI điểm số
-    private void UpdateUI()
+    public void UpdateUI()
     {
         scoreText.text = "Score: " + score;
         healthText.text = "Health: " + health;
