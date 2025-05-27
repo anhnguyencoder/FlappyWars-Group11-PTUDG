@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9057741133926252491}
   - component: {fileID: 4040364553020615900}
   m_Layer: 0
-  m_Name: Freeze-Enemy
+  m_Name: Freeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

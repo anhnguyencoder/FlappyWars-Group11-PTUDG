@@ -20,6 +20,9 @@ public class PowerUp : MonoBehaviour
     public float fallSpeed = 2f;
     private float explosionRadius = 2f;
     private Animator animator; // Tham chiếu đến Animator
+// bom chưa đươc kích hoạt
+    public bool isBomb = false;
+
 
     void Awake()
     {
@@ -39,14 +42,28 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("PlayerBullet"))
         {
             ApplyEffect(PlayerController.Instance);
-            //Destroy(gameObject);
             Destroy(other.gameObject);
+            if (isBomb)
+            {
+                return;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
         else if (other.CompareTag("EnemyBullet"))
         {
             ApplyEffect(GameManager.Instance.GetCurrentEnemy());
-          //  Destroy(gameObject);
             Destroy(other.gameObject);
+            if (isBomb)
+            {
+               return;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
 
         }
     }
@@ -76,6 +93,7 @@ public class PowerUp : MonoBehaviour
                     PlayerController.Instance.Freeze(3);
                     break;
                 case PowerUpType.Bomb:
+                    isBomb = true;
                     Explode();
                     break;
             }

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 6
   fallSpeed: 2
+  isBomb: 0
 --- !u!212 &4133835456208886504
 SpriteRenderer:
   m_ObjectHideFlags: 0
