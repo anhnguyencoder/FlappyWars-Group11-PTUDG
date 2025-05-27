@@ -21,10 +21,8 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 2f;
     public float moveInterval = 2f;
     private float targetY;
-
-    //
     public float bulletSize = 0.3229f;
-    public float bodySize = 1f;
+    public float bodySize = 0.31f;
 
 
     private bool isFrozen = false;
@@ -32,7 +30,11 @@ public class EnemyController : MonoBehaviour
     private bool isShieldActive = false;
 
     private Animator animator; // Tham chiếu tới Animator
-
+    private Vector3 originalScale;
+    void Awake()
+    {
+        originalScale = transform.localScale; // Lưu lại scale ban đầu của enemy
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -208,7 +210,7 @@ public class EnemyController : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    
+
     public void ModifyBulletSize(float multiplier)
     {
         StopCoroutine("BulletSizeCoroutine");
@@ -238,10 +240,18 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isFrozen = false;
     }
+
     public void ModifyBodySize(float multiplier)
     {
-        bodySize *= multiplier;
-        transform.localScale = Vector3.one * bodySize;
+        StopAllCoroutines();
+        StartCoroutine(BodySizeCoroutine(multiplier, 3f));
+    }
+
+    private IEnumerator BodySizeCoroutine(float multiplier, float duration)
+    {
+        transform.localScale = originalScale * multiplier; // Giữ nguyên hướng ban đầu
+        yield return new WaitForSeconds(duration);
+        transform.localScale = originalScale; // Trở về kích thước ban đầu
     }
     private IEnumerator ShieldCoroutine(float duration)
     {
@@ -249,6 +259,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isShieldActive = false;
     }
+
     public void ActivateShield(float duration)
     {
         if (!isShieldActive)

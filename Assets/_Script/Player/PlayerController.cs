@@ -229,13 +229,24 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.UpdateCooldownUI(timeLeft, cooldown);
         
     }
-  
-
+    
+    
     public void ModifyBodySize(float multiplier)
     {
-        bodySize *= multiplier;
-        transform.localScale = Vector3.one * bodySize;
+        StopAllCoroutines(); // Dừng các coroutine cũ nếu có
+        StartCoroutine(BodySizeCoroutine(multiplier, 3f)); // Kích hoạt coroutine
     }
+
+    private IEnumerator BodySizeCoroutine(float multiplier, float duration)
+    {
+        float originalSize = 0.31f; // Kích thước cơ thể mặc định
+        bodySize *= multiplier; // Tăng kích thước cơ thể
+        transform.localScale = Vector3.one * bodySize;
+        yield return new WaitForSeconds(duration); // Đợi trong 3 giây
+        bodySize = originalSize; // Trả về kích thước ban đầu
+        transform.localScale = Vector3.one * bodySize; // Áp dụng lại kích thước
+    }
+
 
     public void ActivateShield(float duration)
     {

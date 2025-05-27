@@ -529,7 +529,7 @@ MonoBehaviour:
   highScoreText: {fileID: 1076059149}
   restartButton: {fileID: 114139112}
   mainMenuButton: {fileID: 289536766}
-  health: 3
+  health: 100
 --- !u!114 &512976465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1239,8 +1239,8 @@ MonoBehaviour:
   - {fileID: 2058435381953877205, guid: 0d0485efe3980b34a82ef2656b33c961, type: 3}
   - {fileID: 8761357046795319978, guid: e2e25d2d7174967439c2ce894e3f3e28, type: 3}
   - {fileID: 8642193702473942788, guid: 327f1f098da1dc4478dae576689438e0, type: 3}
-  minSpawnTime: 5
-  maxSpawnTime: 8
+  minSpawnTime: 1
+  maxSpawnTime: 1
 --- !u!4 &990931379
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,8 +1667,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 5
   bulletSpawnPoint: {fileID: 309711582}
-  bulletSize: 1
-  playerSize: 1
+  bulletSize: 0.3229
+  bodySize: 0.31
 --- !u!114 &1472187269
 MonoBehaviour:
   m_ObjectHideFlags: 0

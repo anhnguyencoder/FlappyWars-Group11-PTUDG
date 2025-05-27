@@ -175,7 +175,7 @@ MonoBehaviour:
   moveSpeed: 2
   moveInterval: 2
   bulletSize: 0.3229
-  bodySize: 1
+  bodySize: 0.31
 --- !u!114 &4752724971548834841
 MonoBehaviour:
   m_ObjectHideFlags: 0
