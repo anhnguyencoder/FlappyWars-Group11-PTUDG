@@ -27,6 +27,7 @@ public class ObjectPoolForPlayer : MonoBehaviour
 
     public GameObject GetBullet()
     {
+        //if (PlayerController.Instance.isFrozen) return null; // Không cấp viên đạn nếu đóng băng
         if (bulletPool.Count > 0)
         {
             GameObject bullet = bulletPool.Dequeue();

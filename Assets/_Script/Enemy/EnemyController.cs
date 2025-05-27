@@ -24,13 +24,17 @@ public class EnemyController : MonoBehaviour
     public float bulletSize = 0.3229f;
     public float bodySize = 0.31f;
 
-
+    // Flag để kiểm tra trạng thái freeze
     private bool isFrozen = false;
+
+
+   
 
     private bool isShieldActive = false;
 
     private Animator animator; // Tham chiếu tới Animator
     private Vector3 originalScale;
+    private Coroutine freezeCoroutine;
     void Awake()
     {
         originalScale = transform.localScale; // Lưu lại scale ban đầu của enemy
@@ -177,12 +181,13 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (!isFrozen)
-        {
+        if (isFrozen)
+            return; // Bỏ qua logic di chuyển khi đang freeze
+        
             Vector3 newPosition = transform.position;
             newPosition.y = Mathf.MoveTowards(transform.position.y, targetY, moveSpeed * Time.deltaTime);
             transform.position = newPosition;
-        }
+        
     }
 
     public void Die()
@@ -224,22 +229,40 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         bulletSize = originalSize;
     }
-
+    
 
     public void Freeze(float duration)
     {
-        if (!isFrozen)
+        // Dừng coroutine nếu nó đang chạy
+        if (freezeCoroutine != null)
         {
-            StartCoroutine(FreezeCoroutine(duration));
+            StopCoroutine(freezeCoroutine);
+            freezeCoroutine = null;
         }
+
+        // Bắt đầu một coroutine mới và lưu tham chiếu
+        freezeCoroutine = StartCoroutine(FreezeCoroutine(duration));
     }
 
     private IEnumerator FreezeCoroutine(float duration)
     {
+        // Bật trạng thái freeze
         isFrozen = true;
+
+        // (Tùy chọn) Thêm hiệu ứng trực quan, ví dụ: thay đổi màu sắc
+        GetComponent<SpriteRenderer>().color = Color.cyan;
+
+        // Chờ thời gian freeze
         yield return new WaitForSeconds(duration);
+
+        // Kết thúc freeze, khôi phục lại trạng thái ban đầu
         isFrozen = false;
+        GetComponent<SpriteRenderer>().color = Color.white;
+
+        // Đặt tham chiếu coroutine về null khi kết thúc
+        freezeCoroutine = null;
     }
+
 
     public void ModifyBodySize(float multiplier)
     {

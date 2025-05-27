@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     public float jumpForce = 9f; // Lực nhảy lên
-    private Rigidbody2D rb;
+    private static Rigidbody2D rb;
     public Transform bulletSpawnPoint;
-    private EnemyType currentShootingStyle = EnemyType.Straight; // Mặc định kiểu bắn ban đầu
+    private EnemyType currentShootingStyle = EnemyType.Spiral; // Mặc định kiểu bắn ban đầu
     private float lastShootTime = 0f; // Thời điểm bắn lần cuối
     //
     private bool isShieldActive = false;
@@ -29,16 +29,30 @@ public class PlayerController : MonoBehaviour
     
     public float bulletSize = 2f;
     public float bodySize = 1f;
+//lưu trạng thái vật lí của Player
+    private RigidbodyConstraints2D originalConstraints;
+    //đóng băng
+    public bool isFrozen = false;
 
     void Awake()
     {
         Instance = this;
-        
+
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component is missing on Player!");
+        }
+        else
+        {
+            // Lưu trạng thái constraints ban đầu sau khi rb đã được gán
+            originalConstraints = rb.constraints;
+        }
+        
     }
 
     void Jump()
@@ -76,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
+        if (isFrozen) return; // Không bắn nếu đang bị đóng băng
         float cooldown = shootingCooldowns[currentShootingStyle];
         
         // Kiểm tra thời gian cooldown
@@ -168,6 +183,8 @@ public class PlayerController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
+            if (isFrozen) yield break; // Dừng bắn nếu đang bị đóng băng
+
             GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
@@ -188,6 +205,7 @@ public class PlayerController : MonoBehaviour
         float angle = 0f;
         for (int i = 0; i < bulletsCount; i++)
         {
+            if (isFrozen) yield break; // Dừng bắn nếu đang bị đóng băng
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
             GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
@@ -281,11 +299,25 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator FreezeCoroutine(float duration)
     {
-        float originalSpeed = bodySize;
-        bodySize = 0;
+        
+
+
+        // Đóng băng toàn bộ chuyển động
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // (Tùy chọn) Thêm hiệu ứng trực quan
+        GetComponent<SpriteRenderer>().color = Color.cyan;
+        isFrozen = true; // Hủy trạng thái đóng băng
         yield return new WaitForSeconds(duration);
-        bodySize = originalSpeed;
+        isFrozen = false; // Hủy trạng thái đóng băng
+        // Khôi phục constraints ban đầu
+        rb.constraints = originalConstraints;
+        // Kích hoạt lại Rigidbody để nó không bị ở trạng thái "sleep"
+        rb.WakeUp();
+
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
+
+
     // Hàm thay đổi kích thước đạn
     public void ModifyBulletSize(float multiplier)
     {
