@@ -19,7 +19,12 @@ public class PowerUp : MonoBehaviour
     public PowerUpType type;
     public float fallSpeed = 2f;
     private float explosionRadius = 2f;
-    
+    private Animator animator; // Tham chiếu đến Animator
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         transform.position += Vector3.down * fallSpeed * Time.deltaTime;
@@ -34,12 +39,15 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("PlayerBullet"))
         {
             ApplyEffect(PlayerController.Instance);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Destroy(other.gameObject);
         }
         else if (other.CompareTag("EnemyBullet"))
         {
             ApplyEffect(GameManager.Instance.GetCurrentEnemy());
-            Destroy(gameObject);
+          //  Destroy(gameObject);
+            Destroy(other.gameObject);
+
         }
     }
     
@@ -99,6 +107,19 @@ public class PowerUp : MonoBehaviour
     
     void Explode()
     {
+        if (animator != null)
+        {
+            animator.SetTrigger("Explode");  // Kích hoạt animation nổ
+        }
+        else
+        {
+            // Nếu không có animator, thực hiện nổ ngay lập tức
+            DoExplosion();
+        }
+    }
+    // Hàm này sẽ được gọi thông qua Animation Event (hoặc bạn có thể gọi sau khi delay)
+    public void DoExplosion()
+    {
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (var obj in hitObjects)
         {
@@ -111,5 +132,10 @@ public class PowerUp : MonoBehaviour
                 obj.GetComponent<EnemyController>()?.Die();
             }
         }
+    
+        // Sau khi hoàn thành nổ, destroy object
+      Destroy(gameObject);
     }
+
+
 }
