@@ -63,4 +63,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SpawnEnemy();
     }
+    public EnemyController GetCurrentEnemy()
+    {
+        return FindObjectOfType<EnemyController>();
+    }
+
 }

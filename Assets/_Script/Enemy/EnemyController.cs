@@ -22,6 +22,13 @@ public class EnemyController : MonoBehaviour
     public float moveInterval = 2f;
     private float targetY;
 
+    //
+    public float bulletSize = 1f;
+ 
+
+    private bool isFrozen = false;
+
+    //
     private Animator animator; // Tham chiếu tới Animator
 
     void Start()
@@ -160,9 +167,12 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPosition = transform.position;
-        newPosition.y = Mathf.MoveTowards(transform.position.y, targetY, moveSpeed * Time.deltaTime);
-        transform.position = newPosition;
+        if (!isFrozen)
+        {
+            Vector3 newPosition = transform.position;
+            newPosition.y = Mathf.MoveTowards(transform.position.y, targetY, moveSpeed * Time.deltaTime);
+            transform.position = newPosition;
+        }
     }
 
     public void Die()
@@ -170,7 +180,6 @@ public class EnemyController : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Die"); // Kích hoạt trạng thái Die
-          
         }
         else
         {
@@ -178,13 +187,35 @@ public class EnemyController : MonoBehaviour
         }
 
         GameManager.Instance.EnemyKilled(enemyType);
-       
+
         // Tăng điểm cho người chơi
         UIManager.Instance.AddScore(1);
     }
-   // Hàm này được gọi từ Animation Event
-public void DestroyAfterAnimation()
-{
-    Destroy(gameObject);
-}
+
+    // Hàm này được gọi từ Animation Event
+    public void DestroyAfterAnimation()
+    {
+        Destroy(gameObject);
+    }
+    
+    public void ModifyBulletSize(float multiplier)
+    {
+        bulletSize *= multiplier;
+    }
+
+    public void Freeze(float duration)
+    {
+        if (!isFrozen)
+        {
+            StartCoroutine(FreezeCoroutine(duration));
+        }
+    }
+
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        isFrozen = true;
+        yield return new WaitForSeconds(duration);
+        isFrozen = false;
+    }
+
 }

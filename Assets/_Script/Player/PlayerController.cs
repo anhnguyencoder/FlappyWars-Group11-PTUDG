@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     private EnemyType currentShootingStyle = EnemyType.Straight; // Mặc định kiểu bắn ban đầu
     private float lastShootTime = 0f; // Thời điểm bắn lần cuối
+    //
+    private bool isShieldActive = false;
+    //
 
     private Dictionary<EnemyType, float> shootingCooldowns = new Dictionary<EnemyType, float>
     {
@@ -23,9 +26,14 @@ public class PlayerController : MonoBehaviour
         { EnemyType.Spiral, 2.5f },//bắn xoắn ốc
         { EnemyType.Random, 0.1f }//bắn ngẫu nhiên hướng
     };
+    
+    public float bulletSize = 1f;
+    public float playerSize = 1f;
+
     void Awake()
     {
         Instance = this;
+        
     }
 
     void Start()
@@ -40,11 +48,15 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDamage()
     {
-        UIManager.Instance.TakeDamage();
-        if (UIManager.Instance.health <= 0)
+        if (!isShieldActive)
         {
-            Die();
+            UIManager.Instance.TakeDamage();
+            if (UIManager.Instance.health <= 0)
+            {
+                Die();
+            }
         }
+        
     }
 
     void Update()
@@ -208,5 +220,50 @@ public class PlayerController : MonoBehaviour
 
         // Gọi UIManager để cập nhật UI
         UIManager.Instance.UpdateCooldownUI(timeLeft, cooldown);
+    }
+    //////////////
+    ///
+    public void ModifyBulletSize(float multiplier)
+    {
+        bulletSize *= multiplier;
+    }
+
+    public void ModifyPlayerSize(float multiplier)
+    {
+        playerSize *= multiplier;
+        transform.localScale = Vector3.one * playerSize;
+    }
+
+    public void ActivateShield(float duration)
+    {
+        if (!isShieldActive)
+        {
+            isShieldActive = true;
+            StartCoroutine(ShieldCoroutine(duration));
+        }
+    }
+
+    private IEnumerator ShieldCoroutine(float duration)
+    {
+        // Activate shield effect here (e.g., visual effect)
+        yield return new WaitForSeconds(duration);
+        isShieldActive = false;
+    }
+
+    public void Heal(int amount)
+    {
+        health += amount;
+    }
+    public void Freeze(float duration)
+    {
+        StartCoroutine(FreezeCoroutine(duration));
+    }
+
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        float originalSpeed = playerSize;
+        playerSize = 0;
+        yield return new WaitForSeconds(duration);
+        playerSize = originalSpeed;
     }
 }
