@@ -30,6 +30,8 @@ public class StoreManager : MonoBehaviour {
             playerGold -= cost;
             row.Upgrade();
             UpdateGoldUI();
+            // Gọi lại để hiển thị giá mới (hoặc "Max" nếu đã hết cấp)
+            row.UpdateRow(playerGold);
         }
     }
 
