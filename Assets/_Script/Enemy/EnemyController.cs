@@ -42,18 +42,37 @@ public class EnemyController : MonoBehaviour
     private Animator animator; // Tham chiếu tới Animator
     private Vector3 originalScale;
     private Coroutine freezeCoroutine;
+    
+    [Header("Visuals")]
+    private SpriteRenderer spriteRenderer;
+
+    private Dictionary<EnemyType, Color> shootingStyleColors = new Dictionary<EnemyType, Color>()
+    {
+        { EnemyType.Straight, Color.white },
+        { EnemyType.Spread, Color.green },
+        { EnemyType.Circular, Color.blue },
+        { EnemyType.Burst, Color.yellow },
+        { EnemyType.Spiral, Color.magenta },
+        { EnemyType.Random, Color.cyan }
+    };
+
+    
     void Awake()
     {
         originalScale = transform.localScale; // Lưu lại scale ban đầu của enemy
         animator = GetComponent<Animator>();
 
         InitializeHealth(); // Khởi tạo health cho enemy
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Start()
     {
         animator = GetComponent<Animator>();
         InvokeRepeating(nameof(Shoot), 1f, 2f);
         InvokeRepeating(nameof(ChangeDirection), 0f, moveInterval);
+        
+        // Cập nhật màu sắc dựa trên kiểu bắn hiện tại
+        UpdateColorBasedOnShootingStyle();
     }
     // Hàm khởi tạo health dựa trên currentEnemyMaxHealth từ GameManager
     void InitializeHealth()
@@ -292,18 +311,20 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator FreezeCoroutine(float duration)
     {
+        // Lưu lại màu ban đầu
+       Color originalColor = GetComponent<SpriteRenderer>().color;
         // Bật trạng thái freeze
         isFrozen = true;
 
         // (Tùy chọn) Thêm hiệu ứng trực quan, ví dụ: thay đổi màu sắc
-        GetComponent<SpriteRenderer>().color = Color.cyan;
+        GetComponent<SpriteRenderer>().color = Color.gray;
 
         // Chờ thời gian freeze
         yield return new WaitForSeconds(duration);
 
         // Kết thúc freeze, khôi phục lại trạng thái ban đầu
         isFrozen = false;
-        GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponent<SpriteRenderer>().color = originalColor;
 
         // Đặt tham chiếu coroutine về null khi kết thúc
         freezeCoroutine = null;
@@ -351,6 +372,17 @@ public class EnemyController : MonoBehaviour
             currentHealth += amount;
             if (currentHealth > maxHealth) currentHealth = maxHealth;
             UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+        }
+    }
+    void UpdateColorBasedOnShootingStyle()
+    {
+        if (shootingStyleColors.ContainsKey(enemyType))
+        {
+            spriteRenderer.color = shootingStyleColors[enemyType];
+        }
+        else
+        {
+            spriteRenderer.color = Color.white; // Mặc định nếu không tìm thấy kiểu bắn
         }
     }
 }

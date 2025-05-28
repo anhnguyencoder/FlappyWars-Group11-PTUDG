@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
         // Đóng băng toàn bộ chuyển động
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         // (Tùy chọn) Thêm hiệu ứng trực quan
-        GetComponent<SpriteRenderer>().color = Color.cyan;
+        GetComponent<SpriteRenderer>().color = Color.gray;
         isFrozen = true; // Hủy trạng thái đóng băng
         yield return new WaitForSeconds(duration);
         isFrozen = false; // Hủy trạng thái đóng băng
