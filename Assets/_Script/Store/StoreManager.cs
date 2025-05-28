@@ -7,7 +7,6 @@ public class StoreManager : MonoBehaviour {
     public static StoreManager Instance;
 
     [Header("Player Resources")]
-    public int playerGold = 1000;  // Số vàng ban đầu (có thể được lấy từ GameManager hoặc lưu trong PlayerPrefs)
     public TextMeshProUGUI goldText;          // Text hiển thị số vàng hiện tại
 
     [Header("Upgrade Rows")]
@@ -21,34 +20,34 @@ public class StoreManager : MonoBehaviour {
         LoadUpgrades(); // Tải dữ liệu trước
         UpdateGoldUI();
         foreach (var row in upgradeRows) {
-            row.UpdateRow(playerGold);
+            row.UpdateRow(PlayerData.gold);
         }
     }
 
     public void BuyUpgrade(UpgradeRow row) {
         int cost = row.GetUpgradeCost();
-        if (playerGold >= cost) {
-            playerGold -= cost;
+        if (PlayerData.gold >= cost) {
+            PlayerData.gold -= cost;
             row.Upgrade();
             UpdateGoldUI();
-            // Gọi lại để hiển thị giá mới (hoặc "Max" nếu đã hết cấp)
-            row.UpdateRow(playerGold);
-            // Lưu lại dữ liệu sau khi mua
+            row.UpdateRow(PlayerData.gold);
             SaveUpgrades();
         }
     }
 
     void UpdateGoldUI() {
         if (goldText != null)
-            goldText.text = "Gold: " + playerGold;
+            goldText.text = "Gold: " + PlayerData.gold;
     }
+    
+    
     // Hàm xử lý sự kiện chuyển về MenuScene
     public void ReturnToMenu() {
         SceneManager.LoadScene("MenuScene");
     }
     public void SaveUpgrades() {
-        // Lưu số vàng
-        PlayerPrefs.SetInt("PlayerGold", playerGold);
+        // Lưu số vàng từ PlayerData
+        PlayerPrefs.SetInt("PlayerGold", PlayerData.gold);
 
         // Lưu cấp độ của mỗi upgrade row
         for (int i = 0; i < upgradeRows.Length; i++) {
@@ -65,8 +64,8 @@ public class StoreManager : MonoBehaviour {
         PlayerPrefs.Save(); // Ghi xuống ổ cứng
     }
     public void LoadUpgrades() {
-        // Lấy số vàng, mặc định 1000 nếu chưa có lưu
-        playerGold = PlayerPrefs.GetInt("PlayerGold", 1000);
+        // Lấy số vàng, mặc định dùng giá trị hiện có trong PlayerData nếu chưa lưu
+        PlayerData.gold = PlayerPrefs.GetInt("PlayerGold", PlayerData.gold);
 
         // Lấy cấp độ cho mỗi Upgrade Row
         for (int i = 0; i < upgradeRows.Length; i++) {

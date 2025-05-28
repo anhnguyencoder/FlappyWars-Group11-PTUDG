@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         int goldReward = UnityEngine.Random.Range(minGold, maxGold + 1);
         Debug.Log("Awarded gold: " + goldReward);
         PlayerData.gold += goldReward;
+        PlayerPrefs.SetInt("PlayerGold", PlayerData.gold);
+        PlayerPrefs.Save();
     
         // Nếu UIManager đã khởi tạo thì cập nhật lại GoldText trên UI
         if (UIManager.Instance != null)
