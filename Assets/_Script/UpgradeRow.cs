@@ -1,18 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+public enum UpgradeType {
+    IncreasePlayerHealth,
+    IncreaseBulletSizeX2Duration,
+    IncreaseBulletSizeX3Duration,
+    IncreaseShieldDuration,
+    IncreaseHealAmount
+}
 
 public class UpgradeRow : MonoBehaviour {
+    [Header("Upgrade Identification")]
+    public UpgradeType upgradeType;// Loại upgrade (cấu hình trong Inspector)
     public Image icon;                // Icon đại diện cho upgrade
     public TextMeshProUGUI upgradeNameText;  // Tên của upgrade (ví dụ: "Tăng máu")
     public TextMeshProUGUI costText;    // Hiển thị giá upgrade hiện tại
     public Button upgradeButton;      // Nút mua upgrade
-    public GameObject[] upgradeCogs;  // Danh sách các cọc nâng cấp (tối đa 10)
+    public GameObject[] upgradeCogs;  // Mảng gồm 10 cọc, ẩn ban đầu
 
     [Header("Upgrade Configuration")]
-    public int currentLevel = 0;      // Mức nâng cấp hiện tại (0 đến 10)
-    public int[] upgradeCosts;        // Giá của từng cấp, ví dụ: upgradeCosts[0] là giá nâng cấp từ 0 lên 1
-
+    public int currentLevel = 0; // Từ 0 đến 10 (10 cấp)
+    public int[] upgradeCosts;  // Mảng giá nâng cấp cho từng cấp (cần có 10 phần tử)
+    public float[] additionalValues; // Giá trị nâng cấp cho mỗi cấp
     // Các giá trị hiệu quả nâng cấp (ví dụ: tăng thêm máu, thời gian Power-Up...) có thể thêm ở đây
 
     public void UpdateRow(int playerGold) {
@@ -38,25 +47,41 @@ public class UpgradeRow : MonoBehaviour {
 
     public void Upgrade() {
         if (currentLevel < upgradeCosts.Length) {
-            // Hiển thị cọc nâng cấp: kích hoạt icon cọc tương ứng
-            upgradeCogs[currentLevel].SetActive(true);
+            // Hiển thị cọc nâng cấp: bật icon tương ứng
+            if (upgradeCogs != null && upgradeCogs.Length > currentLevel)
+                upgradeCogs[currentLevel].SetActive(true);
+            // Lưu giá trị nâng cấp theo cấp hiện tại (trước khi tăng currentLevel)
+            float valueToAdd = additionalValues[currentLevel];
+
+            ApplyUpgradeEffect(valueToAdd);
             currentLevel++;
-            // Nếu upgrade này ảnh hưởng đến biến game (ví dụ: tăng maxHealth cho player), hãy gọi hàm cập nhật tương ứng
-            ApplyUpgradeEffect();
+         
         }
     }
 
-    void ApplyUpgradeEffect() {
-        // Ví dụ: nếu upgrade này là tăng máu cho player
-        if (upgradeNameText.text.Contains("Máu")) {
-            // Bạn có thể tăng maxHealth, hoặc thay đổi giá trị heal, tùy theo yêu cầu
-            PlayerController.Instance.maxHealth += 5;  // tăng thêm 5 máu mỗi lần nâng cấp
-            // Cập nhật UI hiển thị máu
-            PlayerController.Instance.UpdateHealthUI(PlayerController.Instance.health);
+    void ApplyUpgradeEffect(float valueToAdd) {
+        switch (upgradeType) {
+            case UpgradeType.IncreasePlayerHealth:
+                // Tăng maxHealth của người chơi
+                UpgradeManager.Instance.additionalPlayerHealth += (int)valueToAdd;
+                PlayerController.Instance.maxHealth += (int)valueToAdd;
+                PlayerController.Instance.UpdateHealthUI(PlayerController.Instance.health);
+                break;
+            case UpgradeType.IncreaseBulletSizeX2Duration:
+                UpgradeManager.Instance.additionalBulletSizeX2Duration += valueToAdd;
+                break;
+            case UpgradeType.IncreaseBulletSizeX3Duration:
+                UpgradeManager.Instance.additionalBulletSizeX3Duration += valueToAdd;
+                break;
+            case UpgradeType.IncreaseShieldDuration:
+                UpgradeManager.Instance.additionalShieldDuration += valueToAdd;
+                break;
+            case UpgradeType.IncreaseHealAmount:
+                UpgradeManager.Instance.additionalHealAmount += (int)valueToAdd;
+                break;
         }
-        // Nếu upgrade là thời gian Power-Up, bạn cần cập nhật cấu hình trong PowerUp hoặc UIManager
-        // Bạn có thể mở rộng hàm này để áp dụng cho các loại upgrade khác nhau
     }
+    // Hàm này sẽ được gọi khi nhấn nút Upgrade (gán qua Inspector)
     public void OnUpgradeButtonClick() {
         StoreManager.Instance.BuyUpgrade(this);
     }
