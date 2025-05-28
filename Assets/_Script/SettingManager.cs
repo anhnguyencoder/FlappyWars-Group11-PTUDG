@@ -48,6 +48,8 @@ public class SettingManager : MonoBehaviour
     {
         // Thực hiện reset dữ liệu, ví dụ: xóa toàn bộ PlayerPrefs
         PlayerPrefs.DeleteAll();
+        PlayerData.gold = 1000; // Đặt lại giá trị mặc định
+        PlayerPrefs.SetInt("PlayerGold", PlayerData.gold);
         PlayerPrefs.Save();
         Debug.Log("Data has been reset!");
 
