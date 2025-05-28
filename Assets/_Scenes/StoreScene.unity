@@ -1163,7 +1163,7 @@ MonoBehaviour:
   - {fileID: 461412873}
   - {fileID: 250955343}
   currentLevel: 1
-  upgradeCosts: 010000000200000003000000040000000500000006000000070000000800000009000000
+  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
   additionalValues:
   - 1
   - 1
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1617f70c8f8a75e4cb171056035544dd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2917,7 +2917,7 @@ RectTransform:
   m_GameObject: {fileID: 659408947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53, y: 0.53, z: 0.53}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 253673408}
@@ -2925,8 +2925,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.44, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -110.44, y: 0.7}
+  m_SizeDelta: {x: 241.34, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659408949
 MonoBehaviour:
@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Shield
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2982,8 +2982,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3424,7 +3424,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a420025620cdf114f900f14d912abbcf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3652,7 +3652,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d4ed32d69785f324199ab4288865be51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4912,7 +4912,7 @@ MonoBehaviour:
   - {fileID: 1401076719}
   - {fileID: 306294442}
   currentLevel: 1
-  upgradeCosts: 010000000200000003000000040000000500000006000000070000000800000009000000
+  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
   additionalValues:
   - 1
   - 1
@@ -5454,7 +5454,7 @@ GameObject:
   - component: {fileID: 1327187118}
   - component: {fileID: 1327187117}
   m_Layer: 5
-  m_Name: Upgrade Row (1)
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5513,7 +5513,7 @@ MonoBehaviour:
   - {fileID: 347753685}
   - {fileID: 75612053}
   currentLevel: 1
-  upgradeCosts: 010000000200000003000000040000000500000006000000070000000800000009000000
+  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
   additionalValues:
   - 1
   - 1
@@ -5621,7 +5621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7d56f643df6ae74418cacc5a08c1db24, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6315,7 +6315,7 @@ RectTransform:
   m_GameObject: {fileID: 1506383141}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53, y: 0.53, z: 0.53}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1175771324}
@@ -6323,8 +6323,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.44, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -110.44, y: 0.7}
+  m_SizeDelta: {x: 241.34, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506383143
 MonoBehaviour:
@@ -6346,7 +6346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Heal
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6380,8 +6380,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -6691,7 +6691,7 @@ RectTransform:
   m_GameObject: {fileID: 1541003858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53, y: 0.53, z: 0.53}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1720678537}
@@ -6699,8 +6699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.44, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -110.44, y: 0.7}
+  m_SizeDelta: {x: 241.34, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1541003860
 MonoBehaviour:
@@ -6722,7 +6722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Bullet-Size-X3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6756,8 +6756,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -7012,7 +7012,7 @@ RectTransform:
   m_GameObject: {fileID: 1582996127}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53, y: 0.53, z: 0.53}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1327187116}
@@ -7020,8 +7020,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.44, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -110.44, y: 0.7}
+  m_SizeDelta: {x: 241.34, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582996129
 MonoBehaviour:
@@ -7043,7 +7043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7077,8 +7077,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -7605,7 +7605,7 @@ MonoBehaviour:
   - {fileID: 1677656940}
   - {fileID: 716851800}
   currentLevel: 1
-  upgradeCosts: 010000000200000003000000040000000500000006000000070000000800000009000000
+  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
   additionalValues:
   - 1
   - 1
@@ -8037,7 +8037,7 @@ RectTransform:
   m_GameObject: {fileID: 1827637400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.53, y: 0.53, z: 0.53}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1919479593}
@@ -8045,8 +8045,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.44, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -110.44, y: 0.7}
+  m_SizeDelta: {x: 241.34, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827637402
 MonoBehaviour:
@@ -8068,7 +8068,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Bullet-Size-X2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8102,8 +8102,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8226,7 +8226,7 @@ GameObject:
   - component: {fileID: 1919479595}
   - component: {fileID: 1919479594}
   m_Layer: 5
-  m_Name: Upgrade Row (2)
+  m_Name: Bullet-Size-X2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8285,7 +8285,7 @@ MonoBehaviour:
   - {fileID: 680183021}
   - {fileID: 1033142855}
   currentLevel: 1
-  upgradeCosts: 010000000200000003000000040000000500000006000000070000000800000009000000
+  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
   additionalValues:
   - 1
   - 1

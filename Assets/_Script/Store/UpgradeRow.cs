@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -23,6 +24,12 @@ public class UpgradeRow : MonoBehaviour {
     public int[] upgradeCosts;  // Mảng giá nâng cấp cho từng cấp (cần có 10 phần tử)
     public float[] additionalValues; // Giá trị nâng cấp cho mỗi cấp
     // Các giá trị hiệu quả nâng cấp (ví dụ: tăng thêm máu, thời gian Power-Up...) có thể thêm ở đây
+    private void Start()
+    {
+        UpdateCogsDisplay();
+
+
+    }
 
     public void UpdateRow(int playerGold) {
         if (currentLevel < upgradeCosts.Length) {
@@ -47,15 +54,16 @@ public class UpgradeRow : MonoBehaviour {
 
     public void Upgrade() {
         if (currentLevel < upgradeCosts.Length) {
-            // Hiển thị cọc nâng cấp: bật icon tương ứng
-            if (upgradeCogs != null && upgradeCogs.Length > currentLevel)
-                upgradeCogs[currentLevel].SetActive(true);
+            
+            
+            
             // Lưu giá trị nâng cấp theo cấp hiện tại (trước khi tăng currentLevel)
             float valueToAdd = additionalValues[currentLevel];
 
             ApplyUpgradeEffect(valueToAdd);
             currentLevel++;
-         
+            // Cập nhật lại số cọc hiển thị theo currentLevel
+            UpdateCogsDisplay();
         }
     }
 
@@ -83,6 +91,12 @@ public class UpgradeRow : MonoBehaviour {
     // Hàm này sẽ được gọi khi nhấn nút Upgrade (gán qua Inspector)
     public void OnUpgradeButtonClick() {
         StoreManager.Instance.BuyUpgrade(this);
+    }
+    public void UpdateCogsDisplay() {
+        for (int i = 0; i < upgradeCogs.Length; i++) {
+            // Chỉ hiển thị cọc nếu chỉ số i nhỏ hơn currentLevel
+            upgradeCogs[i].SetActive(i < currentLevel);
+        }
     }
 
 }
