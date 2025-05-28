@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public Button startGameButton;
+    public Button storeButton; // Nút mở Store
     [Header("Main Menu UI")]
     public GameObject mainMenuPanel;
     void Start()
     {
         startGameButton.onClick.AddListener(StartGame);
+        storeButton.onClick.AddListener(OpenStore);
     }
 
     void StartGame()
@@ -20,5 +22,9 @@ public class MenuManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         Time.timeScale = 1; // Bắt đầu game
         
+    }
+    public void OpenStore()
+    {
+        SceneManager.LoadScene("StoreScene"); // Chuyển sang Store Scene
     }
 }
