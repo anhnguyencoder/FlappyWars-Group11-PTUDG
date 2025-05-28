@@ -54,7 +54,8 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("PlayerBullet"))
         {
             ApplyEffect(PlayerController.Instance);
-            Destroy(other.gameObject);
+            // Trả viên đạn về khi power up va chạm với nó
+            ObjectPoolForPlayer.Instance.ReturnBullet(other.gameObject);
             if (isBomb)
             {
                 return;
@@ -67,7 +68,10 @@ public class PowerUp : MonoBehaviour
         else if (other.CompareTag("EnemyBullet"))
         {
             ApplyEffect(GameManager.Instance.GetCurrentEnemy());
-            Destroy(other.gameObject);
+            // Trả viên đạn về khi power up va chạm với nó
+
+            ObjectPoolForEnemy.Instance.ReturnBullet(other.gameObject);
+        
             if (isBomb)
             {
                return;
@@ -154,6 +158,7 @@ public class PowerUp : MonoBehaviour
     // Hàm này sẽ được gọi thông qua Animation Event (hoặc bạn có thể gọi sau khi delay)
     public void DoExplosion()
     {
+        Debug.Log("DoExplosion");
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (var obj in hitObjects)
         {
