@@ -223,10 +223,16 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void ModifyBulletSize(float multiplier)
+    // Hàm thay đổi kích thước đạn
+    private Coroutine bulletSizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước đạn
+
+    public void ModifyBulletSize(float multiplier, float duration)
     {
-        StopCoroutine("BulletSizeCoroutine");
-        StartCoroutine(BulletSizeCoroutine(multiplier, 3f));
+        if (bulletSizeCoroutine != null)
+        {
+            StopCoroutine(bulletSizeCoroutine);
+        }
+        bulletSizeCoroutine = StartCoroutine(BulletSizeCoroutine(multiplier, duration));
     }
 
     private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
@@ -235,6 +241,7 @@ public class EnemyController : MonoBehaviour
         bulletSize *= multiplier;
         yield return new WaitForSeconds(duration);
         bulletSize = originalSize;
+        bulletSizeCoroutine = null;
     }
     
 
@@ -271,10 +278,15 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    public void ModifyBodySize(float multiplier)
+    private Coroutine bodySizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước cơ thể
+
+    public void ModifyBodySize(float multiplier, float duration)
     {
-        StopAllCoroutines();
-        StartCoroutine(BodySizeCoroutine(multiplier, 3f));
+        if (bodySizeCoroutine != null)
+        {
+            StopCoroutine(bodySizeCoroutine);
+        }
+        bodySizeCoroutine = StartCoroutine(BodySizeCoroutine(multiplier, duration));
     }
 
     private IEnumerator BodySizeCoroutine(float multiplier, float duration)
@@ -282,6 +294,7 @@ public class EnemyController : MonoBehaviour
         transform.localScale = originalScale * multiplier; // Giữ nguyên hướng ban đầu
         yield return new WaitForSeconds(duration);
         transform.localScale = originalScale; // Trở về kích thước ban đầu
+        bodySizeCoroutine = null; // Khi coroutine hoàn thành, đặt lại tham chiếu
     }
     private IEnumerator ShieldCoroutine(float duration)
     {

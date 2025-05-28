@@ -17,13 +17,25 @@ public enum PowerUpType
 public class PowerUp : MonoBehaviour
 {
     public PowerUpType type;
+    //tốc độ rơi của Power Up
     public float fallSpeed = 2f;
+    //bán kính vụ nổ
     private float explosionRadius = 2f;
     private Animator animator; // Tham chiếu đến Animator
 // bom chưa đươc kích hoạt
     public bool isBomb = false;
 
-
+    // Dictionary chứa thời gian hiệu lực cho từng Power-Up
+    private Dictionary<PowerUpType, float> powerUpDurations = new Dictionary<PowerUpType, float>
+    {
+        { PowerUpType.BulletSizeX2, 5f },
+        { PowerUpType.BulletSizeX3, 5f },
+        { PowerUpType.BodySizeX2, 4f },
+        { PowerUpType.Shield, 6f },
+        { PowerUpType.Heal, 0f },
+        { PowerUpType.Freeze, 3f },
+        { PowerUpType.Bomb, 0f }
+    };
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -70,61 +82,58 @@ public class PowerUp : MonoBehaviour
     
     void ApplyEffect(MonoBehaviour target)
     {
-        float duration = 3f; // Thời gian hiệu lực của Power-Up
+        float duration = powerUpDurations[type]; // Lấy thời gian từ Dictionary
         bool isPlayer = target is PlayerController;
 
+        UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
         if (target is PlayerController player)
         {
-            UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
 
 
             switch (type)
             {
                 case PowerUpType.BulletSizeX2:
-                    player.ModifyBulletSize(2);
+                    player.ModifyBulletSize(2, duration);
                     break;
                 case PowerUpType.BulletSizeX3:
-                    player.ModifyBulletSize(3);
+                    player.ModifyBulletSize(3, duration);
                     break;
                 case PowerUpType.BodySizeX2:
-                    player.ModifyBodySize(2);
+                    player.ModifyBodySize(2, duration);
                     break;
                 case PowerUpType.Shield:
-                    player.ActivateShield(3);
+                    player.ActivateShield(duration);
                     break;
                 case PowerUpType.Heal:
                     player.Heal(1);
                     break;
                 case PowerUpType.Freeze:
-                    PlayerController.Instance.Freeze(5);
+                    player.Freeze(duration);
                     break;
                 case PowerUpType.Bomb:
-                    isBomb = true;
                     Explode();
                     break;
             }
         }
         else if (target is EnemyController enemy)
         {
-            UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
             switch (type)
             {
                 case PowerUpType.BulletSizeX2:
                 case PowerUpType.BulletSizeX3:
-                    enemy.ModifyBulletSize(type == PowerUpType.BulletSizeX2 ? 2 : 3);
+                    enemy.ModifyBulletSize(type == PowerUpType.BulletSizeX2 ? 2 : 3, duration);
                     break;
-                
                 case PowerUpType.Freeze:
-                    GameManager.Instance.GetCurrentEnemy()?.Freeze(5);
+                    enemy.Freeze(duration);
                     break;
                 case PowerUpType.BodySizeX2:
-                    enemy.ModifyBodySize(2);
+                    enemy.ModifyBodySize(2, duration);
                     break;
                 case PowerUpType.Bomb:
                     Explode();
                     break;
                 case PowerUpType.Shield:
-                    enemy.ActivateShield(3);
+                    enemy.ActivateShield(duration);
                     break;
             }
         }

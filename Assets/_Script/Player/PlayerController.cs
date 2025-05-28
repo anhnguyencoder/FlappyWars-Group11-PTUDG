@@ -251,14 +251,13 @@ public class PlayerController : MonoBehaviour
     
     private Coroutine bodySizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước cơ thể
 
-    public void ModifyBodySize(float multiplier)
+    public void ModifyBodySize(float multiplier, float duration)
     {
-        // Nếu đã có coroutine đang chạy cho hiệu ứng này thì dừng nó
         if (bodySizeCoroutine != null)
         {
             StopCoroutine(bodySizeCoroutine);
         }
-        bodySizeCoroutine = StartCoroutine(BodySizeCoroutine(multiplier, 3f));
+        bodySizeCoroutine = StartCoroutine(BodySizeCoroutine(multiplier, duration));
     }
 
     private IEnumerator BodySizeCoroutine(float multiplier, float duration)
@@ -328,13 +327,13 @@ public class PlayerController : MonoBehaviour
     // Hàm thay đổi kích thước đạn
     private Coroutine bulletSizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước đạn
 
-    public void ModifyBulletSize(float multiplier)
+    public void ModifyBulletSize(float multiplier, float duration)
     {
         if (bulletSizeCoroutine != null)
         {
             StopCoroutine(bulletSizeCoroutine);
         }
-        bulletSizeCoroutine = StartCoroutine(BulletSizeCoroutine(multiplier, 3f));
+        bulletSizeCoroutine = StartCoroutine(BulletSizeCoroutine(multiplier, duration));
     }
 
     private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
