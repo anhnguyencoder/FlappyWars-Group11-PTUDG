@@ -24,7 +24,19 @@ public class PowerUpUI : MonoBehaviour
     {
         this.duration = duration;
 
-      
+        // Danh sách các Power-Up tức thì
+   
+        List<PowerUpType> instantPowerUps = new List<PowerUpType>
+        {
+            PowerUpType.Heal,
+            PowerUpType.Bomb
+        };
+        // Nếu là Power-Up tức thì → Ẩn thời gian đếm ngược
+        if (instantPowerUps.Contains(type))
+        {
+            timerText.gameObject.SetActive(false);
+        }
+        
         // Khởi tạo Dictionary để ánh xạ PowerUpType với Sprite
         powerUpIcons = new Dictionary<PowerUpType, Sprite>
         {

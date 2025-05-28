@@ -96,7 +96,7 @@ public class PowerUp : MonoBehaviour
                     player.Heal(1);
                     break;
                 case PowerUpType.Freeze:
-                    PlayerController.Instance.Freeze(3);
+                    PlayerController.Instance.Freeze(5);
                     break;
                 case PowerUpType.Bomb:
                     isBomb = true;
@@ -115,7 +115,7 @@ public class PowerUp : MonoBehaviour
                     break;
                 
                 case PowerUpType.Freeze:
-                    GameManager.Instance.GetCurrentEnemy()?.Freeze(3);
+                    GameManager.Instance.GetCurrentEnemy()?.Freeze(5);
                     break;
                 case PowerUpType.BodySizeX2:
                     enemy.ModifyBodySize(2);
