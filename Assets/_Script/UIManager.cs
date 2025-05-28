@@ -14,8 +14,7 @@ public class UIManager : MonoBehaviour
     [Header("Score UI")]
     public TextMeshProUGUI scoreText;
     
-    [Header("Health UI")]
-    public TextMeshProUGUI healthText;
+  
     
     [Header("Game Over UI")]
     public GameObject gameOverPanel;
@@ -30,9 +29,7 @@ public class UIManager : MonoBehaviour
     public Transform enemyPowerUpPanel;   // Panel hiển thị Power-Up của Enemy
     public GameObject powerUpUIPrefab;    // Prefab hiển thị Power-Up
 
-    [Header("Enemy UI")]
-
-    public TextMeshProUGUI enemyHealthText; // UI hiển thị sức khỏe của enemy (gán qua Inspector)
+   
 
     private int score = 0; // Điểm số của người chơi
    
@@ -92,19 +89,9 @@ public class UIManager : MonoBehaviour
         UpdateScoreUI();
     }
 
-    // // Cập nhật UI Player Health
-    public void UpdateHealthUI(int health)
-    {
-        healthText.text = "Health: " + health;
-    }
+  
     
-    public void UpdateEnemyHealthUI(int current, int max)
-    {
-        if (enemyHealthText != null)
-        {
-            enemyHealthText.text = "Enemy Health: " + current + "/" + max;
-        }
-    }
+   
     // Cập nhật UI điểm số
     private void UpdateScoreUI()
     {

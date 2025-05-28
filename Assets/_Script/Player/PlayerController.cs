@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator; // Tham chiếu đến Animator
 
+    [Header("Health UI")]
+    public TextMeshProUGUI healthText;
     void Awake()
     {
         Instance = this;
@@ -62,7 +65,7 @@ public class PlayerController : MonoBehaviour
             originalConstraints = rb.constraints;
         }
         // Cập nhật UI health khi game bắt đầu
-        UIManager.Instance.UpdateHealthUI(health);
+       UpdateHealthUI(health);
     }
 
     void Jump()
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (!isShieldActive)
         {
             health--;
-            UIManager.Instance.UpdateHealthUI(health);
+           UpdateHealthUI(health);
          //   health = Mathf.Clamp(health, 0, maxHealth); // Đảm bảo health không âm
             // Gọi cập nhật thanh máu
             PlayerHealthBar healthBar = FindObjectOfType<PlayerHealthBar>();
@@ -321,7 +324,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Heal");
             health += amount;
             if (health > maxHealth) health = maxHealth;
-            UIManager.Instance.UpdateHealthUI(health);
+            UpdateHealthUI(health);
             
           //  health = Mathf.Clamp(health, 0, maxHealth);
 
@@ -377,5 +380,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         bulletSize = originalSize;
         bulletSizeCoroutine = null;
+    }
+    // // Cập nhật UI Player Health
+    public void UpdateHealthUI(int health)
+    {
+        healthText.text = health+"/"+ maxHealth;
     }
 }

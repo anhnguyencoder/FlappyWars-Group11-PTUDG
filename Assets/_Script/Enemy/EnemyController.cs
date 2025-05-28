@@ -56,7 +56,9 @@ public class EnemyController : MonoBehaviour
         { EnemyType.Random, Color.cyan }
     };
 
-    
+    [Header("Enemy UI")]
+
+    public TextMeshProUGUI enemyHealthText; // UI hiển thị sức khỏe của enemy (gán qua Inspector)
     void Awake()
     {
         originalScale = transform.localScale; // Lưu lại scale ban đầu của enemy
@@ -79,7 +81,7 @@ public class EnemyController : MonoBehaviour
     {
         maxHealth = GameManager.Instance.currentEnemyMaxHealth;
         currentHealth = maxHealth;
-        UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+        UpdateEnemyHealthUI(currentHealth, maxHealth);
     }
     // Cập nhật UI của enemy (ví dụ: hiển thị "1/2")
    
@@ -91,7 +93,7 @@ public class EnemyController : MonoBehaviour
 
         currentHealth -= damage;
         // Cập nhật UI enemy health qua UIManager
-        UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+        UpdateEnemyHealthUI(currentHealth, maxHealth);
       //  currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Đảm bảo health không âm
         // Gọi cập nhật thanh máu
         EnemyHealthBar healthBar = FindObjectOfType<EnemyHealthBar>();
@@ -103,6 +105,8 @@ public class EnemyController : MonoBehaviour
         {
             Die();
         }
+        // Tăng điểm cho người chơi 
+        UIManager.Instance.AddScore(1);
     }
     void ChangeDirection()
     {
@@ -270,8 +274,7 @@ public class EnemyController : MonoBehaviour
 // Thông báo cho GameManager để cập nhật số enemy bị tiêu diệt và nâng cấp enemy mới
             GameManager.Instance.EnemyKilled(enemyType);
 
-            // Tăng điểm cho người chơi
-            UIManager.Instance.AddScore(1);
+            
         }
     }
 
@@ -378,7 +381,7 @@ public class EnemyController : MonoBehaviour
         animator.SetTrigger("Enemy Heal");
             currentHealth += amount;
             if (currentHealth > maxHealth) currentHealth = maxHealth;
-            UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+            UpdateEnemyHealthUI(currentHealth, maxHealth);
             
             // Gọi cập nhật thanh máu
             EnemyHealthBar healthBar = FindObjectOfType<EnemyHealthBar>();
@@ -397,6 +400,14 @@ public class EnemyController : MonoBehaviour
         else
         {
             spriteRenderer.color = Color.white; // Mặc định nếu không tìm thấy kiểu bắn
+        }
+    }
+    
+    public void UpdateEnemyHealthUI(int current, int max)
+    {
+        if (enemyHealthText != null)
+        {
+            enemyHealthText.text =  current + "/" + max;
         }
     }
 }
