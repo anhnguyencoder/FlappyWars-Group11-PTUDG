@@ -797,9 +797,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878ec341b55121844954dff1e60816fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  storeSceneName: StoreScene
+  menuScene: MenuScene
   loadingSlider: {fileID: 92347564}
-  loadingText: {fileID: 0}
-  minimumLoadingTime: 3
+  percentageText: {fileID: 251449120}
+  loadDuration: 2
+  waitAfterLoad: 0.5
 --- !u!1 &1348743035
 GameObject:
   m_ObjectHideFlags: 0
