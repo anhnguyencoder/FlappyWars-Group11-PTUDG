@@ -1234,15 +1234,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpPrefabs:
+  - {fileID: 8761357046795319978, guid: e2e25d2d7174967439c2ce894e3f3e28, type: 3}
   - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  - {fileID: 1289073439760008342, guid: f8e526be14035a74181c90f7651bc464, type: 3}
-  minSpawnTime: 1
-  maxSpawnTime: 1
+  - {fileID: 9012992253456386375, guid: e27776065437f9043a5318ddf1020fcf, type: 3}
+  - {fileID: 1599147175621148417, guid: d3e466349e81c7d409094f333b501bc1, type: 3}
+  - {fileID: 1967234201175246288, guid: f5e2588c0b786c348a980e8e442c9596, type: 3}
+  - {fileID: 2058435381953877205, guid: 0d0485efe3980b34a82ef2656b33c961, type: 3}
+  - {fileID: 8642193702473942788, guid: 327f1f098da1dc4478dae576689438e0, type: 3}
+  minSpawnTime: 5
+  maxSpawnTime: 6
 --- !u!4 &990931379
 Transform:
   m_ObjectHideFlags: 0
