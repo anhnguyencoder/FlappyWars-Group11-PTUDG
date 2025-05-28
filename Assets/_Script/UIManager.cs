@@ -33,9 +33,7 @@ public class UIManager : MonoBehaviour
     
     
     private int score = 0; // Điểm số của người chơi
-    [Header("Health")]
-    public int health = 100;
-    public int maxHealth=100;
+   
     
     private int highScore = 0;
     private bool isGameStarted = false;
@@ -57,7 +55,7 @@ public class UIManager : MonoBehaviour
        
 
         highScore = PlayerPrefs.GetInt("HighScore", 0);
-        UpdateUI();
+        UpdateScoreUI();
         isGameStarted = true;
 
         Time.timeScale = 1;
@@ -89,29 +87,20 @@ public class UIManager : MonoBehaviour
     {
         if (!isGameStarted) return;
         score += points;
-        if (score % 10 == 0 && health < 3)
-        {
-            health++;
-        }
-        UpdateUI();
+        UpdateScoreUI();
     }
 
-    public void TakeDamage()
+    // Cập nhật UI Health
+    public void UpdateHealthUI(int health)
     {
-        if (!isGameStarted) return;
-        health--;
-        UpdateUI();
-        if (health <= 0)
-        {
-            GameOver();
-        }
+        healthText.text = "Health: " + health;
     }
     
     // Cập nhật UI điểm số
-    public void UpdateUI()
+    // Cập nhật UI điểm số
+    private void UpdateScoreUI()
     {
         scoreText.text = "Score: " + score;
-        healthText.text = "Health: " + health;
     }
     
     public void GameOver()

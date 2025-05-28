@@ -12,36 +12,41 @@ public class PlayerController : MonoBehaviour
     public Transform bulletSpawnPoint;
     private EnemyType currentShootingStyle = EnemyType.Spiral; // Mặc định kiểu bắn ban đầu
     private float lastShootTime = 0f; // Thời điểm bắn lần cuối
-    //
     private bool isShieldActive = false;
-    //
 
 
     private Dictionary<EnemyType, float> shootingCooldowns = new Dictionary<EnemyType, float>
     {
-        { EnemyType.Straight, 0.5f },//bắn thẳng
-        { EnemyType.Spread, 0.5f },// bắn 3 hướng
-        { EnemyType.Circular, 0.5f },//bắn 8 hướng
-        { EnemyType.Burst, 1.5f },//bắn theo đợt 
-        
-        { EnemyType.Spiral, 2.5f },//bắn xoắn ốc
-        { EnemyType.Random, 0.1f }//bắn ngẫu nhiên hướng
+        { EnemyType.Straight, 0.5f }, //bắn thẳng
+        { EnemyType.Spread, 0.5f }, // bắn 3 hướng
+        { EnemyType.Circular, 0.5f }, //bắn 8 hướng
+        { EnemyType.Burst, 1.5f }, //bắn theo đợt 
+
+        { EnemyType.Spiral, 2.5f }, //bắn xoắn ốc
+        { EnemyType.Random, 0.1f } //bắn ngẫu nhiên hướng
     };
-    
+
     public float bulletSize = 2f;
+
     public float bodySize = 1f;
-//lưu trạng thái vật lí của Player
+
+    // Quản lý health trong PlayerController
+    public int health = 100;
+
+    public int maxHealth = 100;
+
+    //lưu trạng thái vật lí của Player
     private RigidbodyConstraints2D originalConstraints;
+
     //đóng băng
     public bool isFrozen = false;
 
     private Animator animator; // Tham chiếu đến Animator
+
     void Awake()
     {
         Instance = this;
         animator = GetComponent<Animator>();
-
-
     }
 
     void Start()
@@ -56,7 +61,8 @@ public class PlayerController : MonoBehaviour
             // Lưu trạng thái constraints ban đầu sau khi rb đã được gán
             originalConstraints = rb.constraints;
         }
-        
+        // Cập nhật UI health khi game bắt đầu
+        UIManager.Instance.UpdateHealthUI(health);
     }
 
     void Jump()
@@ -64,17 +70,19 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
+
     public void TakeDamage()
     {
+        
         if (!isShieldActive)
         {
-            UIManager.Instance.TakeDamage();
-            if (UIManager.Instance.health <= 0)
+            health--;
+            UIManager.Instance.UpdateHealthUI(health);
+            if (health <= 0)
             {
                 Die();
             }
-        }
-        
+        }   
     }
 
     void Update()
@@ -83,11 +91,12 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
-        
+
         // Cập nhật UI cooldown
         UpdateCooldownUI();
     }
@@ -96,12 +105,13 @@ public class PlayerController : MonoBehaviour
     {
         if (isFrozen) return; // Không bắn nếu đang bị đóng băng
         float cooldown = shootingCooldowns[currentShootingStyle];
-        
+
         // Kiểm tra thời gian cooldown
         if (Time.time - lastShootTime < cooldown)
         {
             return; // Chưa đủ thời gian, không bắn
         }
+
         lastShootTime = Time.time; // Cập nhật thời điểm bắn
         switch (currentShootingStyle)
         {
@@ -117,7 +127,7 @@ public class PlayerController : MonoBehaviour
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
                 break;
-            
+
             case EnemyType.Spiral:
                 StartCoroutine(ShootSpiral());
                 break;
@@ -140,12 +150,13 @@ public class PlayerController : MonoBehaviour
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(Vector2.right);
-        bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
     }
 
     void ShootSpread()
     {
-        Vector2[] directions = {
+        Vector2[] directions =
+        {
             new Vector2(1, -0.5f).normalized,
             Vector2.right,
             new Vector2(1, 0.5f).normalized
@@ -159,8 +170,8 @@ public class PlayerController : MonoBehaviour
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
-            
-            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+
+            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -178,7 +189,7 @@ public class PlayerController : MonoBehaviour
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
-            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -196,12 +207,11 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(Vector2.right);
 
-            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
             yield return new WaitForSeconds(0.2f);
         }
     }
 
-    
 
     IEnumerator ShootSpiral()
     {
@@ -219,7 +229,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
 
-            bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
@@ -227,20 +237,23 @@ public class PlayerController : MonoBehaviour
 
     void ShootRandom()
     {
-        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(-1f, 1f))
+            .normalized;
         GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(randomDirection);
-        bulletController.SetBulletSize(PlayerController.Instance.bulletSize); // Áp dụng kích thước
+        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
     }
+
     public void Die()
     {
         gameObject.SetActive(false);
         UIManager.Instance.GameOver();
     }
+
     void UpdateCooldownUI()
     {
         float cooldown = shootingCooldowns[currentShootingStyle];
@@ -249,10 +262,9 @@ public class PlayerController : MonoBehaviour
 
         // Gọi UIManager để cập nhật UI
         UIManager.Instance.UpdateCooldownUI(timeLeft, cooldown);
-        
     }
-    
-    
+
+
     private Coroutine bodySizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước cơ thể
 
     public void ModifyBodySize(float multiplier, float duration)
@@ -261,6 +273,7 @@ public class PlayerController : MonoBehaviour
         {
             StopCoroutine(bodySizeCoroutine);
         }
+
         bodySizeCoroutine = StartCoroutine(BodySizeCoroutine(multiplier, duration));
     }
 
@@ -294,17 +307,15 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amount)
     {
-        
-        animator.SetTrigger("Heal");  // Kích hoạt animation nổ
-        
-        if (UIManager.Instance.health < UIManager.Instance.maxHealth)
+        animator.SetTrigger("Heal");
+        if (health < maxHealth)
         {
-            UIManager.Instance.health += amount;
-            UIManager.Instance.UpdateUI();  
+            health += amount;
+            if (health > maxHealth) health = maxHealth;
+            UIManager.Instance.UpdateHealthUI(health);
         }
-        
-
     }
+
     public void Freeze(float duration)
     {
         StartCoroutine(FreezeCoroutine(duration));
@@ -312,9 +323,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator FreezeCoroutine(float duration)
     {
-        
-
-
         // Đóng băng toàn bộ chuyển động
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         // (Tùy chọn) Thêm hiệu ứng trực quan
@@ -340,6 +348,7 @@ public class PlayerController : MonoBehaviour
         {
             StopCoroutine(bulletSizeCoroutine);
         }
+
         bulletSizeCoroutine = StartCoroutine(BulletSizeCoroutine(multiplier, duration));
     }
 
@@ -351,5 +360,4 @@ public class PlayerController : MonoBehaviour
         bulletSize = originalSize;
         bulletSizeCoroutine = null;
     }
-
 }
