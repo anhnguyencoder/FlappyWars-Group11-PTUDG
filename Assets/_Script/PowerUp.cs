@@ -137,7 +137,6 @@ public class PowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Bomb:
                     isBomb = true;
-
                     Explode();
                     break;
                 case PowerUpType.Shield:

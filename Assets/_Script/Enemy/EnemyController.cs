@@ -345,9 +345,9 @@ public class EnemyController : MonoBehaviour
     }
     public void Heal(int amount)
     {
-        animator.SetTrigger("Heal");
         if (currentHealth < maxHealth)
         {
+        animator.SetTrigger("Enemy Heal");
             currentHealth += amount;
             if (currentHealth > maxHealth) currentHealth = maxHealth;
             UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);

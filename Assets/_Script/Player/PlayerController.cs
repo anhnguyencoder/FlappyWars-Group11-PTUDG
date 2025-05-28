@@ -307,9 +307,9 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amount)
     {
-        animator.SetTrigger("Heal");
         if (health < maxHealth)
         {
+        animator.SetTrigger("Heal");
             health += amount;
             if (health > maxHealth) health = maxHealth;
             UIManager.Instance.UpdateHealthUI(health);
