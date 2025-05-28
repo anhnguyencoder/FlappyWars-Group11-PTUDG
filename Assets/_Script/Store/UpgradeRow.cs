@@ -71,7 +71,7 @@ public class UpgradeRow : MonoBehaviour {
         }
     }
 
-    void ApplyUpgradeEffect(float valueToAdd) {
+   public void ApplyUpgradeEffect(float valueToAdd) {
         switch (upgradeType) {
             case UpgradeType.IncreasePlayerHealth:
                 // Tăng maxHealth của người chơi
@@ -102,7 +102,7 @@ public class UpgradeRow : MonoBehaviour {
             upgradeCogs[i].SetActive(i < currentLevel);
         }
     }
-    void UpdateStatText() {
+    public void UpdateStatText() {
         switch (upgradeType) {
             case UpgradeType.IncreasePlayerHealth:
                 float totalPlayerHealth = config.basePlayerHealth + UpgradeManager.Instance.additionalPlayerHealth;

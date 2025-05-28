@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618ba077be00f834e9ead19cbf02d5dc, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  basePlayerHealth: 100
+  basePlayerHealth: 10
   baseBulletSizeX2Duration: 5
   baseBulletSizeX3Duration: 5
   baseShieldDuration: 6
