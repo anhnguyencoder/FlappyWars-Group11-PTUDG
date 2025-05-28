@@ -70,8 +70,14 @@ public class PowerUp : MonoBehaviour
     
     void ApplyEffect(MonoBehaviour target)
     {
+        float duration = 3f; // Thời gian hiệu lực của Power-Up
+        bool isPlayer = target is PlayerController;
+
         if (target is PlayerController player)
         {
+            UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
+
+
             switch (type)
             {
                 case PowerUpType.BulletSizeX2:
@@ -100,6 +106,7 @@ public class PowerUp : MonoBehaviour
         }
         else if (target is EnemyController enemy)
         {
+            UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
             switch (type)
             {
                 case PowerUpType.BulletSizeX2:

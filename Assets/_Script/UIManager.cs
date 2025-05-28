@@ -25,10 +25,15 @@ public class UIManager : MonoBehaviour
     public Button mainMenuButton;
     
  
-   
+    [Header("Power-Up UI")]
+    public Transform playerPowerUpPanel;  // Panel hiển thị Power-Up của Player
+    public Transform enemyPowerUpPanel;   // Panel hiển thị Power-Up của Enemy
+    public GameObject powerUpUIPrefab;    // Prefab hiển thị Power-Up
+
     
     
     private int score = 0; // Điểm số của người chơi
+    [Header("Health")]
     public int health = 100;
     public int maxHealth=100;
     
@@ -140,4 +145,17 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetInt("IsGameStarted", 0);
 
     }
+    public void AddPowerUpUI(PowerUpType type, bool isPlayer, float duration)
+    {
+        Transform panel = isPlayer ? playerPowerUpPanel : enemyPowerUpPanel;
+
+        // Tạo UI mới cho Power-Up
+        GameObject powerUpUI = Instantiate(powerUpUIPrefab, panel);
+        PowerUpUI ui = powerUpUI.GetComponent<PowerUpUI>();
+        ui.Setup(type, duration);
+
+        // Xếp theo chiều dọc, Power-Up mới xuất hiện bên dưới
+        powerUpUI.transform.SetAsLastSibling();
+    }
+
 }
