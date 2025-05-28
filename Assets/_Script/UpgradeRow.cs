@@ -64,8 +64,7 @@ public class UpgradeRow : MonoBehaviour {
             case UpgradeType.IncreasePlayerHealth:
                 // Tăng maxHealth của người chơi
                 UpgradeManager.Instance.additionalPlayerHealth += (int)valueToAdd;
-                PlayerController.Instance.maxHealth += (int)valueToAdd;
-                PlayerController.Instance.UpdateHealthUI(PlayerController.Instance.health);
+              
                 break;
             case UpgradeType.IncreaseBulletSizeX2Duration:
                 UpgradeManager.Instance.additionalBulletSizeX2Duration += valueToAdd;

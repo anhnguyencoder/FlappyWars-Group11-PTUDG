@@ -64,7 +64,10 @@ public class PlayerController : MonoBehaviour
             // Lưu trạng thái constraints ban đầu sau khi rb đã được gán
             originalConstraints = rb.constraints;
         }
+        //cộng thêm máu đã nâng cấp
+        maxHealth += UpgradeManager.Instance.additionalPlayerHealth;
         // Cập nhật UI health khi game bắt đầu
+        
        UpdateHealthUI(health);
     }
 
