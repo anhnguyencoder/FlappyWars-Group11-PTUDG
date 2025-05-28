@@ -37,9 +37,4 @@ public class StoreManager : MonoBehaviour {
         if (goldText != null)
             goldText.text = "Gold: " + playerGold;
     }
-    // Hàm xử lý sự kiện chuyển về MenuScene
-    public void ReturnToMenu() {
-        SceneManager.LoadScene("MenuScene");
-    }
-
 }

@@ -86,24 +86,10 @@ public class PowerUp : MonoBehaviour
     
     void ApplyEffect(MonoBehaviour target)
     {
-        // Lấy thời gian cơ bản từ Dictionary
-        float baseDuration = powerUpDurations[type];
+        float duration = powerUpDurations[type]; // Lấy thời gian từ Dictionary
         bool isPlayer = target is PlayerController;
 
-        
-        // Nếu có upgrade tương ứng, cộng thêm giá trị
-        // Nếu target là Player, cộng thêm upgrade tương ứng
-        if (isPlayer)
-        {
-            if (type == PowerUpType.BulletSizeX2)
-                baseDuration += UpgradeManager.Instance.additionalBulletSizeX2Duration;
-            else if (type == PowerUpType.BulletSizeX3)
-                baseDuration += UpgradeManager.Instance.additionalBulletSizeX3Duration;
-            else if (type == PowerUpType.Shield)
-                baseDuration += UpgradeManager.Instance.additionalShieldDuration;
-        }
-
-        UIManager.Instance.AddPowerUpUI(type, isPlayer, baseDuration);
+        UIManager.Instance.AddPowerUpUI(type, isPlayer, duration);
         if (target is PlayerController player)
         {
 
@@ -111,24 +97,22 @@ public class PowerUp : MonoBehaviour
             switch (type)
             {
                 case PowerUpType.BulletSizeX2:
-                    player.ModifyBulletSize(2, baseDuration);
+                    player.ModifyBulletSize(2, duration);
                     break;
                 case PowerUpType.BulletSizeX3:
-                    player.ModifyBulletSize(3, baseDuration);
+                    player.ModifyBulletSize(3, duration);
                     break;
                 case PowerUpType.BodySizeX2:
-                    player.ModifyBodySize(2, baseDuration);
+                    player.ModifyBodySize(2, duration);
                     break;
                 case PowerUpType.Shield:
-                    player.ActivateShield(baseDuration);
+                    player.ActivateShield(duration);
                     break;
                 case PowerUpType.Heal:
-                    // Tăng lượng heal theo upgrade: mặc định là 1, cộng thêm từ UpgradeManager
-                    int extraHeal = UpgradeManager.Instance.additionalHealAmount;
-                    player.Heal(1 + extraHeal);
+                    player.Heal(1);
                     break;
                 case PowerUpType.Freeze:
-                    player.Freeze(baseDuration);
+                    player.Freeze(duration);
                     break;
                 case PowerUpType.Bomb:
                     //nếu isbomb=true thì Bomb sẽ không bị destroy ngay mà sẽ destroy sau khi animation bomb nổ xong
@@ -143,20 +127,20 @@ public class PowerUp : MonoBehaviour
             {
                 case PowerUpType.BulletSizeX2:
                 case PowerUpType.BulletSizeX3:
-                    enemy.ModifyBulletSize(type == PowerUpType.BulletSizeX2 ? 2 : 3, baseDuration);
+                    enemy.ModifyBulletSize(type == PowerUpType.BulletSizeX2 ? 2 : 3, duration);
                     break;
                 case PowerUpType.Freeze:
-                    enemy.Freeze(baseDuration);
+                    enemy.Freeze(duration);
                     break;
                 case PowerUpType.BodySizeX2:
-                    enemy.ModifyBodySize(2, baseDuration);
+                    enemy.ModifyBodySize(2, duration);
                     break;
                 case PowerUpType.Bomb:
                     isBomb = true;
                     Explode();
                     break;
                 case PowerUpType.Shield:
-                    enemy.ActivateShield(baseDuration);
+                    enemy.ActivateShield(duration);
                     break;
                 case PowerUpType.Heal:
                     enemy.Heal(1);
