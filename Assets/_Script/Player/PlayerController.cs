@@ -249,20 +249,27 @@ public class PlayerController : MonoBehaviour
     }
     
     
+    private Coroutine bodySizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước cơ thể
+
     public void ModifyBodySize(float multiplier)
     {
-        StopAllCoroutines(); // Dừng các coroutine cũ nếu có
-        StartCoroutine(BodySizeCoroutine(multiplier, 3f)); // Kích hoạt coroutine
+        // Nếu đã có coroutine đang chạy cho hiệu ứng này thì dừng nó
+        if (bodySizeCoroutine != null)
+        {
+            StopCoroutine(bodySizeCoroutine);
+        }
+        bodySizeCoroutine = StartCoroutine(BodySizeCoroutine(multiplier, 3f));
     }
 
     private IEnumerator BodySizeCoroutine(float multiplier, float duration)
     {
-        float originalSize = 0.31f; // Kích thước cơ thể mặc định
-        bodySize *= multiplier; // Tăng kích thước cơ thể
+        float originalSize = 0.31f;
+        bodySize *= multiplier;
         transform.localScale = Vector3.one * bodySize;
-        yield return new WaitForSeconds(duration); // Đợi trong 3 giây
-        bodySize = originalSize; // Trả về kích thước ban đầu
-        transform.localScale = Vector3.one * bodySize; // Áp dụng lại kích thước
+        yield return new WaitForSeconds(duration);
+        bodySize = originalSize;
+        transform.localScale = Vector3.one * bodySize;
+        bodySizeCoroutine = null; // Khi coroutine hoàn thành, đặt lại tham chiếu
     }
 
 
@@ -319,16 +326,24 @@ public class PlayerController : MonoBehaviour
 
 
     // Hàm thay đổi kích thước đạn
+    private Coroutine bulletSizeCoroutine; // Lưu tham chiếu riêng của coroutine kích thước đạn
+
     public void ModifyBulletSize(float multiplier)
     {
-        StopAllCoroutines(); // Dừng các coroutine cũ nếu có
-        StartCoroutine(BulletSizeCoroutine(multiplier, 3f)); // Kích hoạt coroutine
+        if (bulletSizeCoroutine != null)
+        {
+            StopCoroutine(bulletSizeCoroutine);
+        }
+        bulletSizeCoroutine = StartCoroutine(BulletSizeCoroutine(multiplier, 3f));
     }
+
     private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
     {
         float originalSize = 0.3229f;
-        bulletSize *= multiplier; // Tăng kích thước đạn
-        yield return new WaitForSeconds(duration); // Đợi trong 3 giây
-        bulletSize = originalSize; // Trả về kích thước ban đầu
+        bulletSize *= multiplier;
+        yield return new WaitForSeconds(duration);
+        bulletSize = originalSize;
+        bulletSizeCoroutine = null;
     }
+
 }
