@@ -25,6 +25,7 @@ public class PowerUp : MonoBehaviour
 // bom chưa đươc kích hoạt
     public bool isBomb = false;
 
+   
     // Dictionary chứa thời gian hiệu lực cho từng Power-Up
     private Dictionary<PowerUpType, float> powerUpDurations = new Dictionary<PowerUpType, float>
     {

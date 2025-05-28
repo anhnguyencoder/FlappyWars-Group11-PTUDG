@@ -3,7 +3,13 @@ guid: 6bdf365a953bc074ca1aaf9809bd6713
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - icon: {instanceID: 0}
+  - upgradeNameText: {instanceID: 0}
+  - costText: {instanceID: 0}
+  - upgradeButton: {instanceID: 0}
+  - statText: {instanceID: 0}
+  - config: {fileID: 11400000, guid: 42ffce8e23c8f4c4999b04f96c167781, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

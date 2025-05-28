@@ -23,11 +23,13 @@ public class UpgradeRow : MonoBehaviour {
     public int currentLevel = 0; // Từ 0 đến 10 (10 cấp)
     public int[] upgradeCosts;  // Mảng giá nâng cấp cho từng cấp (cần có 10 phần tử)
     public float[] additionalValues; // Giá trị nâng cấp cho mỗi cấp
-    // Các giá trị hiệu quả nâng cấp (ví dụ: tăng thêm máu, thời gian Power-Up...) có thể thêm ở đây
+    public TextMeshProUGUI statText;  // Text hiển thị chỉ số nâng cấp
+    public GameConfig config; // Gán từ Inspector hoặc load từ Resources
+    
     private void Start()
     {
         UpdateCogsDisplay();
-
+        UpdateStatText();
 
     }
 
@@ -64,6 +66,8 @@ public class UpgradeRow : MonoBehaviour {
             currentLevel++;
             // Cập nhật lại số cọc hiển thị theo currentLevel
             UpdateCogsDisplay();
+            // Cập nhật lại text chỉ số
+            UpdateStatText();
         }
     }
 
@@ -98,5 +102,30 @@ public class UpgradeRow : MonoBehaviour {
             upgradeCogs[i].SetActive(i < currentLevel);
         }
     }
+    void UpdateStatText() {
+        switch (upgradeType) {
+            case UpgradeType.IncreasePlayerHealth:
+                float totalPlayerHealth = config.basePlayerHealth + UpgradeManager.Instance.additionalPlayerHealth;
+                statText.text = "Health: " + totalPlayerHealth.ToString("F1");
+                break;
+            case UpgradeType.IncreaseBulletSizeX2Duration:
+                float totalBulletSizeX2Duration = config.baseBulletSizeX2Duration + UpgradeManager.Instance.additionalBulletSizeX2Duration;
+                statText.text = "Duration: " + totalBulletSizeX2Duration.ToString("F1") + "s";
+                break;
+            case UpgradeType.IncreaseBulletSizeX3Duration:
+                float totalBulletSizeX3Duration = config.baseBulletSizeX3Duration + UpgradeManager.Instance.additionalBulletSizeX3Duration;
+                statText.text = "Duration: " + totalBulletSizeX3Duration.ToString("F1") + "s";
+                break;
+            case UpgradeType.IncreaseShieldDuration:
+                float totalShield = config.baseShieldDuration + UpgradeManager.Instance.additionalShieldDuration;
+                statText.text = "Duration: " + totalShield.ToString("F1") + "s";
+                break;
+            case UpgradeType.IncreaseHealAmount:
+                float totalHealAmount = config.baseHealAmount + UpgradeManager.Instance.additionalHealAmount;
+                statText.text = "Heal Amount: " + totalHealAmount.ToString("F1");
+                break;
+        }
+    }
+
 
 }

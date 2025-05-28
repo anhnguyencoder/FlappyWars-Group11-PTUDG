@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-
+    public GameConfig Config; // Lưu trữ tham chiếu đến GameConfig
+    
     public float jumpForce = 9f; // Lực nhảy lên
     private static Rigidbody2D rb;
     public Transform bulletSpawnPoint;
@@ -32,9 +33,9 @@ public class PlayerController : MonoBehaviour
     public float bodySize = 1f;
 
     // Quản lý health trong PlayerController
-    public int health = 100;
+    public int health;
 
-    public int maxHealth = 100;
+    private int maxHealth;
 
     //lưu trạng thái vật lí của Player
     private RigidbodyConstraints2D originalConstraints;
@@ -46,9 +47,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Health UI")]
     public TextMeshProUGUI healthText;
+    
     void Awake()
     {
+        maxHealth = Config.basePlayerHealth;
         Instance = this;
+     
         animator = GetComponent<Animator>();
     }
 
@@ -66,6 +70,9 @@ public class PlayerController : MonoBehaviour
         }
         //cộng thêm máu đã nâng cấp
         maxHealth += UpgradeManager.Instance.additionalPlayerHealth;
+        
+        // Đảm bảo health = maxHealth ở thời điểm bắt đầu
+        health = maxHealth;
         // Cập nhật UI health khi game bắt đầu
         
        UpdateHealthUI(health);
