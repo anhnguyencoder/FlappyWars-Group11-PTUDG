@@ -340,8 +340,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 20
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -634,7 +634,7 @@ MonoBehaviour:
   mainMenuButton: {fileID: 289536766}
   playerPowerUpPanel: {fileID: 1646097332}
   enemyPowerUpPanel: {fileID: 171721764}
-  powerUpUIPrefab: {fileID: 0}
+  powerUpUIPrefab: {fileID: 446299229226013181, guid: 441524e7d8b77834688ec0ed9d893788, type: 3}
   health: 100
   maxHealth: 100
 --- !u!114 &512976465
@@ -2179,8 +2179,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0

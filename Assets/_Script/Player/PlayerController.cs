@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool isShieldActive = false;
     //
 
+
     private Dictionary<EnemyType, float> shootingCooldowns = new Dictionary<EnemyType, float>
     {
         { EnemyType.Straight, 0.5f },//bắn thẳng
@@ -34,9 +35,12 @@ public class PlayerController : MonoBehaviour
     //đóng băng
     public bool isFrozen = false;
 
+    private Animator animator; // Tham chiếu đến Animator
     void Awake()
     {
         Instance = this;
+        animator = GetComponent<Animator>();
+
 
     }
 
@@ -290,6 +294,9 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amount)
     {
+        
+        animator.SetTrigger("Heal");  // Kích hoạt animation nổ
+        
         if (UIManager.Instance.health < UIManager.Instance.maxHealth)
         {
             UIManager.Instance.health += amount;
