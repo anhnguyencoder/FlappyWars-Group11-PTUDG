@@ -115,6 +115,8 @@ public class PowerUp : MonoBehaviour
                     player.Freeze(duration);
                     break;
                 case PowerUpType.Bomb:
+                    //nếu isbomb=true thì Bomb sẽ không bị destroy ngay mà sẽ destroy sau khi animation bomb nổ xong
+                    isBomb = true;
                     Explode();
                     break;
             }
@@ -134,6 +136,8 @@ public class PowerUp : MonoBehaviour
                     enemy.ModifyBodySize(2, duration);
                     break;
                 case PowerUpType.Bomb:
+                    isBomb = true;
+
                     Explode();
                     break;
                 case PowerUpType.Shield:
