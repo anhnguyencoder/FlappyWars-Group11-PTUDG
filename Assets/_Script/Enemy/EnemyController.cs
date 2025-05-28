@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -16,14 +17,20 @@ public enum EnemyType
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("Movement & Shooting")]
     public Transform bulletSpawnPoint;
     public EnemyType enemyType;
     public float moveSpeed = 2f;
     public float moveInterval = 2f;
     private float targetY;
+    [Header("Sizes")]
     public float bulletSize = 0.3229f;
     public float bodySize = 0.31f;
-
+    
+    [Header("Health")]
+    public int maxHealth;         // Sức khỏe tối đa của enemy (được khởi tạo từ GameManager)
+    public int currentHealth;     // Sức khỏe hiện tại
+    
     // Flag để kiểm tra trạng thái freeze
     private bool isFrozen = false;
 
@@ -38,6 +45,9 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         originalScale = transform.localScale; // Lưu lại scale ban đầu của enemy
+        animator = GetComponent<Animator>();
+
+        InitializeHealth(); // Khởi tạo health cho enemy
     }
     void Start()
     {
@@ -45,7 +55,29 @@ public class EnemyController : MonoBehaviour
         InvokeRepeating(nameof(Shoot), 1f, 2f);
         InvokeRepeating(nameof(ChangeDirection), 0f, moveInterval);
     }
+    // Hàm khởi tạo health dựa trên currentEnemyMaxHealth từ GameManager
+    void InitializeHealth()
+    {
+        maxHealth = GameManager.Instance.currentEnemyMaxHealth;
+        currentHealth = maxHealth;
+        UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+    }
+    // Cập nhật UI của enemy (ví dụ: hiển thị "1/2")
+   
 
+    // Hàm nhận sát thương (được gọi từ va chạm với đạn của player)
+    public void TakeDamage(int damage)
+    {
+        if (isShieldActive) return;
+
+        currentHealth -= damage;
+        // Cập nhật UI enemy health qua UIManager
+        UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
     void ChangeDirection()
     {
         targetY = UnityEngine.Random.Range(-5f, 5f);
@@ -209,7 +241,7 @@ public class EnemyController : MonoBehaviour
             {
                 Destroy(gameObject); // Hủy ngay nếu không có Animator
             }
-
+// Thông báo cho GameManager để cập nhật số enemy bị tiêu diệt và nâng cấp enemy mới
             GameManager.Instance.EnemyKilled(enemyType);
 
             // Tăng điểm cho người chơi
@@ -309,6 +341,16 @@ public class EnemyController : MonoBehaviour
         {
             isShieldActive = true;
             StartCoroutine(ShieldCoroutine(duration));
+        }
+    }
+    public void Heal(int amount)
+    {
+        animator.SetTrigger("Heal");
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += amount;
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
+            UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
         }
     }
 }

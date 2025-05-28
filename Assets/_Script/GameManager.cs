@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     public Transform spawnPoint; // Điểm sinh Enemy
 
     private GameObject currentEnemy; // Kẻ địch hiện tại
-
+    
+    [Header("Enemy Health Upgrade")]
+    public int totalEnemiesKilled = 0;
+    public int currentEnemyMaxHealth = 2; // Enemy đầu tiên có maxHealth = 2
     private void Awake()
     {
         Instance = this;
@@ -23,6 +26,14 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled(EnemyType enemyType)
     {
+        totalEnemiesKilled++;
+        // Mỗi khi player tiêu diệt được 3 enemy, tăng max health của enemy mới sinh lên 1
+        if (totalEnemiesKilled % 3 == 0)
+        {
+            currentEnemyMaxHealth++;
+            Debug.Log("Enemy upgraded! New max enemy health: " + currentEnemyMaxHealth);
+        }
+        
         PlayerController.Instance.SetShootingStyle(enemyType); // Cập nhật style bắn cho Player
 
         // Đặt currentEnemy là null để cho phép sinh kẻ địch mới

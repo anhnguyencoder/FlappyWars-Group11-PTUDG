@@ -143,6 +143,9 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.Shield:
                     enemy.ActivateShield(duration);
                     break;
+                case PowerUpType.Heal:
+                    enemy.Heal(1);
+                    break;
             }
         }
     }

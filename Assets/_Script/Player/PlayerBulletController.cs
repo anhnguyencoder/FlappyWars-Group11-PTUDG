@@ -36,7 +36,7 @@
          
                 if (enemyController != null)
                 {
-                   enemyController.Die();
+                   enemyController.TakeDamage(1);
                 }
                 ObjectPoolForPlayer.Instance.ReturnBullet(gameObject);
             }
