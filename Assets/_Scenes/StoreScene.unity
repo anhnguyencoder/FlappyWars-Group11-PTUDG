@@ -1642,14 +1642,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 0
-  icon: {fileID: 0}
-  upgradeNameText: {fileID: 0}
-  costText: {fileID: 0}
-  upgradeButton: {fileID: 0}
-  upgradeCogs: []
-  currentLevel: 0
-  upgradeCosts: 
-  additionalValues: []
+  icon: {fileID: 1826702565}
+  upgradeNameText: {fileID: 987992758}
+  costText: {fileID: 1282191625}
+  upgradeButton: {fileID: 866910329}
+  upgradeCogs:
+  - {fileID: 576021108}
+  - {fileID: 1568954234}
+  - {fileID: 2127881021}
+  - {fileID: 219627945}
+  - {fileID: 70217790}
+  - {fileID: 217440469}
+  - {fileID: 443362229}
+  - {fileID: 557125778}
+  - {fileID: 1464595254}
+  - {fileID: 1584991995}
+  currentLevel: 1
+  upgradeCosts: 010000000100000001000000010000000100000001000000010000000100000001000000
+  additionalValues:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
 --- !u!114 &1160525044
 MonoBehaviour:
   m_ObjectHideFlags: 0
