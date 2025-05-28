@@ -12,5 +12,6 @@ public class UpgradeManager : MonoBehaviour {
 
     void Awake() {
         Instance = this;
+        
     }
 }
