@@ -78,9 +78,9 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             UIManager.Instance.UpdateHealthUI(health);
-            health = Mathf.Clamp(health, 0, maxHealth); // Đảm bảo health không âm
+         //   health = Mathf.Clamp(health, 0, maxHealth); // Đảm bảo health không âm
             // Gọi cập nhật thanh máu
-            HealthBarUI healthBar = FindObjectOfType<HealthBarUI>();
+            PlayerHealthBar healthBar = FindObjectOfType<PlayerHealthBar>();
             if (healthBar != null)
             {
                 healthBar.UpdateHealthBar(health, maxHealth);
@@ -323,10 +323,10 @@ public class PlayerController : MonoBehaviour
             if (health > maxHealth) health = maxHealth;
             UIManager.Instance.UpdateHealthUI(health);
             
-            health = Mathf.Clamp(health, 0, maxHealth);
+          //  health = Mathf.Clamp(health, 0, maxHealth);
 
             // Gọi cập nhật thanh máu
-            HealthBarUI healthBar = FindObjectOfType<HealthBarUI>();
+            PlayerHealthBar healthBar = FindObjectOfType<PlayerHealthBar>();
             if (healthBar != null)
             {
                 healthBar.UpdateHealthBar(health, maxHealth);

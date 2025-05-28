@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarUI : MonoBehaviour
+public class PlayerHealthBar : MonoBehaviour
 {
     public Image healthBarFill; // Tham chiếu đến phần Fill của thanh máu
     private Camera mainCamera;

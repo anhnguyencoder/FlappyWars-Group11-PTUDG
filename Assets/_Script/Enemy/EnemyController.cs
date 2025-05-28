@@ -92,6 +92,13 @@ public class EnemyController : MonoBehaviour
         currentHealth -= damage;
         // Cập nhật UI enemy health qua UIManager
         UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+      //  currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Đảm bảo health không âm
+        // Gọi cập nhật thanh máu
+        EnemyHealthBar healthBar = FindObjectOfType<EnemyHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
         if (currentHealth <= 0)
         {
             Die();
@@ -372,6 +379,13 @@ public class EnemyController : MonoBehaviour
             currentHealth += amount;
             if (currentHealth > maxHealth) currentHealth = maxHealth;
             UIManager.Instance.UpdateEnemyHealthUI(currentHealth, maxHealth);
+            
+            // Gọi cập nhật thanh máu
+            EnemyHealthBar healthBar = FindObjectOfType<EnemyHealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.UpdateHealthBar(currentHealth, maxHealth);
+            }
         }
     }
     void UpdateColorBasedOnShootingStyle()
