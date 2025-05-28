@@ -33,7 +33,17 @@ public class GameManager : MonoBehaviour
             currentEnemyMaxHealth++;
             Debug.Log("Enemy upgraded! New max enemy health: " + currentEnemyMaxHealth);
         }
-        
+        // Tính toán số gold thưởng dựa theo số enemy đã bị tiêu diệt
+        // Enemy thứ n: thưởng random từ n*100 đến n*100 + 100
+        int minGold = totalEnemiesKilled * 100;
+        int maxGold = totalEnemiesKilled * 100 + 100; // Random.Range(int, int) với max là exclusive, nên dùng maxGold + 1
+        int goldReward = UnityEngine.Random.Range(minGold, maxGold + 1);
+        Debug.Log("Awarded gold: " + goldReward);
+        PlayerData.gold += goldReward;
+    
+        // Nếu UIManager đã khởi tạo thì cập nhật lại GoldText trên UI
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateGoldText();
         PlayerController.Instance.SetShootingStyle(enemyType); // Cập nhật style bắn cho Player
 
         // Đặt currentEnemy là null để cho phép sinh kẻ địch mới

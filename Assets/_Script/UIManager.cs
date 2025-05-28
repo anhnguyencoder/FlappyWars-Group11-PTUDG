@@ -14,7 +14,8 @@ public class UIManager : MonoBehaviour
     [Header("Score UI")]
     public TextMeshProUGUI scoreText;
     
-  
+    [Header("Player Gold UI")]
+    public TextMeshProUGUI goldText; // GoldText hiển thị trên GameScene
     
     [Header("Game Over UI")]
     public GameObject gameOverPanel;
@@ -64,7 +65,7 @@ public class UIManager : MonoBehaviour
         
         restartButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-
+        UpdateGoldText();
     }
    
     // Cập nhật UI cooldown
@@ -141,5 +142,8 @@ public class UIManager : MonoBehaviour
         // Xếp theo chiều dọc, Power-Up mới xuất hiện bên dưới
         powerUpUI.transform.SetAsLastSibling();
     }
-
+    public void UpdateGoldText() {
+        if(goldText != null)
+            goldText.text = "Gold: " + PlayerData.gold;
+    }
 }
