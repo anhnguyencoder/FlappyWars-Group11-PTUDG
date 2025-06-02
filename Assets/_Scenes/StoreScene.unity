@@ -7407,8 +7407,6 @@ MonoBehaviour:
   sfxSource: {fileID: 218333916}
   menuMusicClips:
   - {fileID: 8300000, guid: 7a4905c5a83530347934b50be17abc98, type: 3}
-  - {fileID: 8300000, guid: 0694c9acc2cd4474186f9c8be026c123, type: 3}
-  - {fileID: 8300000, guid: ceedcb4645aeea64c8f4b4cb5546da98, type: 3}
   gameplayMusicClips:
   - {fileID: 8300000, guid: d3863d764b48e5d4b90016f1459e8ada, type: 3}
   - {fileID: 8300000, guid: eb318245f9dab8c49a9347138fe6c2f5, type: 3}
