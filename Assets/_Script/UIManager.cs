@@ -129,7 +129,7 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
-        finalScoreText.text = "Final Score: " + score;
+        finalScoreText.text = "Final Score:" + score;
         Time.timeScale = 0; // Dừng game khi thua
         if (score > highScore)
         {
