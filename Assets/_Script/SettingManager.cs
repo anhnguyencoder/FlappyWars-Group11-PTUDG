@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
-
+    public static SettingManager Instance;
     [Header("Panels")]
     public GameObject settingsPanel;         // Panel cài đặt (SettingsPanel)
     public GameObject confirmationDialog;    // Cửa sổ xác nhận (ConfirmationDialog)

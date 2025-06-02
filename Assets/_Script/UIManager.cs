@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI pauseScoreText;     // Hiển thị điểm hiện tại trên Pause Panel
     public Button resumeButton;                // Nút chơi tiếp (Resume)
     public Button pauseMenuButton;             // Nút Menu
-    public Button pauseSettingButton;          // Nút Setting (mở SettingsPanel)
+   
 
     void Awake()
     {
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
         // Gán sự kiện cho Pause Panel
         resumeButton.onClick.AddListener(ResumeGame);
         pauseMenuButton.onClick.AddListener(ReturnToMainMenu);
-        pauseSettingButton.onClick.AddListener(OpenSettings);
+   
 
         // Đảm bảo PausePanel bị ẩn khi game bắt đầu
         if (pausePanel != null) pausePanel.SetActive(false);
@@ -250,11 +250,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
     }
     
-    // Mở Settings (sử dụng phương thức đã có trong SettingManager hoặc AudioManager)
-    public void OpenSettings()
-    {
-      
-
-    }
+   
 
 }
