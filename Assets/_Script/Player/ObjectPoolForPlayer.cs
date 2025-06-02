@@ -31,7 +31,6 @@ public class ObjectPoolForPlayer : MonoBehaviour
 
         if (bulletPool.Count > 0)
         {
-       AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
             GameObject bullet = bulletPool.Dequeue();
             bullet.SetActive(true);
             return bullet;

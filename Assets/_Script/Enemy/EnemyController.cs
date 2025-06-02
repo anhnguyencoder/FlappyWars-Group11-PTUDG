@@ -147,6 +147,8 @@ public class EnemyController : MonoBehaviour
 
     void ShootStraight()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
         GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
@@ -158,6 +160,7 @@ public class EnemyController : MonoBehaviour
 
     void ShootSpread()
     {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
         Vector2[] directions =
         {
             new Vector2(-1, -0.5f).normalized,
@@ -167,6 +170,7 @@ public class EnemyController : MonoBehaviour
 
         foreach (Vector2 direction in directions)
         {
+
             GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
             bullet.transform.rotation = Quaternion.identity;
@@ -179,6 +183,8 @@ public class EnemyController : MonoBehaviour
 
     void ShootCircular()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
         int bulletsCount = 8;
         for (int i = 0; i < bulletsCount; i++)
         {
@@ -200,6 +206,8 @@ public class EnemyController : MonoBehaviour
         int burstCount = 3;
         for (int i = 0; i < burstCount; i++)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
             if (isFrozen)
                 yield break; // Dừng bắn nếu enemy đang freeze
             
@@ -222,6 +230,8 @@ public class EnemyController : MonoBehaviour
         float angle = 0f;
         for (int i = 0; i < bulletsCount; i++)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
             if (isFrozen)
                 yield break; // Dừng bắn nếu enemy đang freeze
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
@@ -241,6 +251,8 @@ public class EnemyController : MonoBehaviour
 
     void ShootRandom()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
         Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f))
             .normalized;
         GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
