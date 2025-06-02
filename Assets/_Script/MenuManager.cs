@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
     {
         startGameButton.onClick.AddListener(StartGame);
         storeButton.onClick.AddListener(OpenStore);
+        AudioManager.Instance.PlayRandomMenuMusic();
+
     }
 
     void StartGame()

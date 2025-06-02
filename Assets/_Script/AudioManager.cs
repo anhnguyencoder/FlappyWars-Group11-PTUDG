@@ -39,6 +39,7 @@ public class AudioManager : MonoBehaviour {
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
         } else {
             Destroy(gameObject);
         }
@@ -55,7 +56,6 @@ public class AudioManager : MonoBehaviour {
     /// Phát nhạc nền với clip cho trước (sẽ loop)
     /// </summary>
     public void PlayBackgroundMusic(AudioClip clip) {
-        if (bgmSource.isPlaying) return; // Không thay đổi nếu đang phát cùng clip
         bgmSource.clip = clip;
         bgmSource.loop = true;
         bgmSource.Play();
