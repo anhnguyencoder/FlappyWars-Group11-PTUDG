@@ -24,7 +24,8 @@ public class EnemyController : MonoBehaviour
     public float moveInterval = 2f;
     private float targetY;
     [Header("Sizes")]
-    public float bulletSize = 0.3229f;
+    public float bulletSize;
+    private float _bulletSize;
     public float bodySize = 0.31f;
     
     [Header("Health")]
@@ -66,6 +67,7 @@ public class EnemyController : MonoBehaviour
 
         InitializeHealth(); // Khởi tạo health cho enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
+        _bulletSize = bulletSize;
     }
     void Start()
     {
@@ -151,7 +153,7 @@ public class EnemyController : MonoBehaviour
 
         EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
         bulletController.SetDirection(Vector2.left);
-        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
     }
 
     void ShootSpread()
@@ -171,7 +173,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
         }
     }
 
@@ -189,7 +191,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
         }
     }
 
@@ -207,7 +209,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(Vector2.left);
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -230,7 +232,7 @@ public class EnemyController : MonoBehaviour
 
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
 
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
@@ -247,7 +249,7 @@ public class EnemyController : MonoBehaviour
 
         EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
         bulletController.SetDirection(randomDirection);
-        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
     }
 
     void Update()
@@ -301,10 +303,9 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
     {
-        float originalSize = 0.3229f;
-        bulletSize *= multiplier;
+        _bulletSize *= multiplier;
         yield return new WaitForSeconds(duration);
-        bulletSize = originalSize;
+        _bulletSize = bulletSize;
         bulletSizeCoroutine = null;
     }
     

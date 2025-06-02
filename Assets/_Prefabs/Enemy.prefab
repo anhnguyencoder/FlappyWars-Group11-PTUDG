@@ -431,7 +431,7 @@ MonoBehaviour:
   enemyType: 0
   moveSpeed: 2
   moveInterval: 2
-  bulletSize: 0.3229
+  bulletSize: 0.036
   bodySize: 0.31
   maxHealth: 0
   currentHealth: 0

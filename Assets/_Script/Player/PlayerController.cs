@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
         { EnemyType.Random, 0.1f } //bắn ngẫu nhiên hướng
     };
 
-    public float bulletSize = 2f;
+    public float bulletSize ;
+    private float _bulletSize;
 
     public float bodySize = 1f;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         Instance = this;
      
         animator = GetComponent<Animator>();
+        _bulletSize = bulletSize;
     }
 
     void Start()
@@ -203,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(Vector2.right);
-        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
     }
 
     void ShootSpread()
@@ -224,7 +226,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
 
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -242,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
         }
     }
 
@@ -260,7 +262,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(Vector2.right);
 
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -282,7 +284,7 @@ public class PlayerController : MonoBehaviour
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
 
-            bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
             angle -= Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
@@ -298,7 +300,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
         bulletController.SetDirection(randomDirection);
-        bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
+        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
     }
 
     public void Die()
@@ -418,10 +420,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator BulletSizeCoroutine(float multiplier, float duration)
     {
-        float originalSize = 0.3229f;
-        bulletSize *= multiplier;
+       
+        _bulletSize *= multiplier;
         yield return new WaitForSeconds(duration);
-        bulletSize = originalSize;
+        _bulletSize = bulletSize;
         bulletSizeCoroutine = null;
     }
     // // Cập nhật UI Player Health
