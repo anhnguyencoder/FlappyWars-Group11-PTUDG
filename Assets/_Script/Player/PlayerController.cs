@@ -153,6 +153,13 @@ public class PlayerController : MonoBehaviour
         UpdateCooldownUI();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerDeathZone"))
+        {
+            Die();
+        }
+    }
 
     void Shoot()
     {
