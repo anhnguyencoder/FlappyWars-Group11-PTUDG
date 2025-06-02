@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerData {
-    public static int gold = 1000;
+    public static int gold = 10000;
 }

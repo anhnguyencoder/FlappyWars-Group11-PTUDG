@@ -35,7 +35,7 @@ public class UpgradeRow : MonoBehaviour {
 
     public void UpdateRow(int playerGold) {
         if (currentLevel < upgradeCosts.Length) {
-            costText.text = upgradeCosts[currentLevel] + " Gold";
+            costText.text = upgradeCosts[currentLevel] + "";
             bool canBuy = playerGold >= upgradeCosts[currentLevel];
             upgradeButton.interactable = canBuy;
             // Cập nhật màu sắc của nút: màu xanh nếu có đủ, màu xám nếu không

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   basePlayerHealth: 5
-  baseBulletSizeX2Duration: 5
-  baseBulletSizeX3Duration: 5
-  baseShieldDuration: 6
+  baseBulletSizeX2Duration: 3
+  baseBulletSizeX3Duration: 3
+  baseShieldDuration: 3
   baseHealAmount: 1

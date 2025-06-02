@@ -1968,18 +1968,18 @@ MonoBehaviour:
   - {fileID: 461412873}
   - {fileID: 250955343}
   currentLevel: 1
-  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  upgradeCosts: 64000000c800000090010000bc0200004c0400004006000098080000540b0000740e0000f8110000
   additionalValues:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.1
+  - 0.2
+  - 0.4
+  - 0.7
+  - 1.1
+  - 1.6
+  - 2.2
+  - 2.9
+  - 3.7
+  - 4.6
   statText: {fileID: 2088759991}
   config: {fileID: 11400000, guid: 42ffce8e23c8f4c4999b04f96c167781, type: 2}
 --- !u!114 &253673410
@@ -2635,11 +2635,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a864a8ba4dc9fd24d8f70811c2978e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  additionalPlayerHealth: 1
-  additionalBulletSizeX2Duration: 1
-  additionalBulletSizeX3Duration: 1
-  additionalShieldDuration: 1
-  additionalHealAmount: 1
+  additionalPlayerHealth: 0
+  additionalBulletSizeX2Duration: 0
+  additionalBulletSizeX3Duration: 0
+  additionalShieldDuration: 0
+  additionalHealAmount: 0
 --- !u!1 &347753685
 GameObject:
   m_ObjectHideFlags: 0
@@ -8288,7 +8288,7 @@ MonoBehaviour:
   - {fileID: 1401076719}
   - {fileID: 306294442}
   currentLevel: 1
-  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  upgradeCosts: 64000000c800000090010000bc0200004c0400004006000098080000540b0000740e0000f8110000
   additionalValues:
   - 1
   - 1
@@ -9310,7 +9310,7 @@ MonoBehaviour:
   - {fileID: 347753685}
   - {fileID: 75612053}
   currentLevel: 1
-  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  upgradeCosts: 64000000c800000090010000bc0200004c0400004006000098080000540b0000740e0000f8110000
   additionalValues:
   - 1
   - 1
@@ -12051,17 +12051,17 @@ MonoBehaviour:
   - {fileID: 1677656940}
   - {fileID: 716851800}
   currentLevel: 1
-  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  upgradeCosts: 64000000c800000090010000bc0200004c0400004006000098080000540b0000740e0000f8110000
   additionalValues:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
   - 1
   statText: {fileID: 149364421}
   config: {fileID: 11400000, guid: 42ffce8e23c8f4c4999b04f96c167781, type: 2}
@@ -13341,18 +13341,18 @@ MonoBehaviour:
   - {fileID: 680183021}
   - {fileID: 1033142855}
   currentLevel: 1
-  upgradeCosts: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  upgradeCosts: 64000000c800000090010000bc0200004c0400004006000098080000540b0000740e0000f8110000
   additionalValues:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0.1
+  - 0.2
+  - 0.4
+  - 0.7
+  - 1.1
+  - 1.6
+  - 2.2
+  - 2.9
+  - 3.7
+  - 4.6
   statText: {fileID: 838741093}
   config: {fileID: 11400000, guid: 42ffce8e23c8f4c4999b04f96c167781, type: 2}
 --- !u!114 &1919479595
