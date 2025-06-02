@@ -45,6 +45,8 @@ public class AudioManager : MonoBehaviour {
     }
 
     void Start() {
+        bgmVolume = PlayerPrefs.GetFloat("BGMVolume", bgmVolume);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", sfxVolume);
         bgmSource.volume = bgmVolume;
         sfxSource.volume = sfxVolume;
     }

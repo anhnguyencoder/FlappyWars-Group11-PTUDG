@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadingPanel : MonoBehaviour
 {
-    public Slider progressSlider;                // Slider hiển thị tiến độ
+    public Image loadingFill;               // Image dùng để hiển thị tiến độ (Fill Amount)
     public TextMeshProUGUI progressText;           // Text hiển thị phần trăm
     public float loadingTime = 3f;                 // Thời gian loading (3 giây)
 
@@ -33,12 +33,12 @@ public class LoadingPanel : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float progress = Mathf.Clamp01(elapsed / loadingTime);
-            progressSlider.value = progress;
+            loadingFill.fillAmount = progress;
             progressText.text = (progress * 100f).ToString("F0") + "%";
             yield return null;
         }
         // Đảm bảo hiển thị 100%
-        progressSlider.value = 1f;
+        loadingFill.fillAmount = 1f;
         progressText.text = "100%";
         yield return new WaitForSeconds(0.5f);
 

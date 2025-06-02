@@ -13,6 +13,9 @@ public class SettingManager : MonoBehaviour
     public Button resetButton;          // Nút Reset Data trong SettingsPanel
     public Button confirmResetButton;   // Nút xác nhận Reset trong ConfirmationDialog
     public Button cancelResetButton;    // Nút Cancel trong ConfirmationDialog
+    [Header("Volume Sliders")]
+    public Slider bgmVolumeSlider;      // Slider điều chỉnh âm lượng nhạc nền
+    public Slider sfxVolumeSlider;      // Slider điều chỉnh âm lượng hiệu ứng âm thanh
 
     void Start()
     {
@@ -26,6 +29,16 @@ public class SettingManager : MonoBehaviour
         resetButton.onClick.AddListener(OnResetButtonClicked);
         confirmResetButton.onClick.AddListener(ConfirmReset);
         cancelResetButton.onClick.AddListener(CancelReset);
+        // Khởi tạo giá trị của slider dựa trên AudioManager (nếu AudioManager đã được khởi tạo)
+        if (AudioManager.Instance != null)
+        {
+            bgmVolumeSlider.value = AudioManager.Instance.bgmVolume;
+            sfxVolumeSlider.value = AudioManager.Instance.sfxVolume;
+        }
+
+        // Gán sự kiện khi giá trị slider thay đổi
+        bgmVolumeSlider.onValueChanged.AddListener(OnBGMVolumeChanged);
+        sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
     }
 
     public void OpenSettings()
@@ -61,5 +74,25 @@ public class SettingManager : MonoBehaviour
     {
         // Ẩn cửa sổ xác nhận mà không reset dữ liệu
         confirmationDialog.SetActive(false);
+    }
+    
+    void OnBGMVolumeChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetBGMVolume(value);
+            PlayerPrefs.SetFloat("BGMVolume", value);
+            PlayerPrefs.Save();
+        }
+    }
+
+    void OnSFXVolumeChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetSFXVolume(value);
+            PlayerPrefs.SetFloat("SFXVolume", value);
+            PlayerPrefs.Save();
+        }
     }
 }
