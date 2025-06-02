@@ -65,6 +65,15 @@ public class SettingManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         PlayerData.gold = 1000; // Đặt lại giá trị mặc định
         PlayerPrefs.SetInt("PlayerGold", PlayerData.gold);
+        
+        
+        // Reset các giá trị bonus của UpgradeManager
+        UpgradeManager.Instance.additionalPlayerHealth = 0;
+        UpgradeManager.Instance.additionalBulletSizeX2Duration = 0f;
+        UpgradeManager.Instance.additionalBulletSizeX3Duration = 0f;
+        UpgradeManager.Instance.additionalShieldDuration = 0f;
+        UpgradeManager.Instance.additionalHealAmount = 0;
+        
         PlayerPrefs.Save();
         Debug.Log("Data has been reset!");
 

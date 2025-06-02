@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour {
     /// Phát nhạc nền với clip cho trước (sẽ loop)
     /// </summary>
     public void PlayBackgroundMusic(AudioClip clip) {
-        if (bgmSource.clip == clip && bgmSource.isPlaying) return; // Không thay đổi nếu đang phát cùng clip
+        if (bgmSource.isPlaying) return; // Không thay đổi nếu đang phát cùng clip
         bgmSource.clip = clip;
         bgmSource.loop = true;
         bgmSource.Play();

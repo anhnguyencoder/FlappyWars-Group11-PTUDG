@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour
     private bool isGameStarted = false;
     [Header("Pause Panel UI")]
     public GameObject pausePanel;              // Panel pause, set inactive ban đầu
-    public TextMeshProUGUI pauseScoreText;     // Hiển thị điểm hiện tại trên Pause Panel
     public Button resumeButton;                // Nút chơi tiếp (Resume)
     public Button pauseMenuButton;             // Nút Menu
    
@@ -236,9 +235,7 @@ public class UIManager : MonoBehaviour
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
-            // Cập nhật score hiện tại vào pauseScoreText
-            if (pauseScoreText != null)
-                pauseScoreText.text = "Score: " + score;
+           
         }
     }
 

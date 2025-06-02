@@ -215,7 +215,7 @@ public class PowerUp : MonoBehaviour
             }
             else if (obj.CompareTag("Enemy"))
             {
-                obj.GetComponent<EnemyController>()?.Die();
+                obj.GetComponent<EnemyController>()?.TakeDamage(1);
             }
         }
     
