@@ -230,7 +230,7 @@ public class EnemyController : MonoBehaviour
         float angle = 0f;
         for (int i = 0; i < bulletsCount; i++)
         {
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+           
 
             if (isFrozen)
                 yield break; // Dừng bắn nếu enemy đang freeze
@@ -243,6 +243,7 @@ public class EnemyController : MonoBehaviour
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
             bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
 
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
