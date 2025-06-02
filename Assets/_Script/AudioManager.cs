@@ -55,6 +55,11 @@ public class AudioManager : MonoBehaviour {
         bgmSource.volume = bgmVolume;
         sfxSource.volume = sfxVolume;
     }
+    void Update() {
+        if(Time.timeScale == 0 && spiralSoundSource.isPlaying) {
+            spiralSoundSource.Stop();
+        }
+    }
 
     /// <summary>
     /// Phát nhạc nền với clip cho trước (sẽ loop)

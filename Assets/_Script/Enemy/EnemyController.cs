@@ -119,28 +119,29 @@ public class EnemyController : MonoBehaviour
 
     void Shoot()
     {
+        
+        
+        
         if (isFrozen)
             return; // Nếu đang freeze thì không bắn
         switch (enemyType)
         {
+            
+                    
             case EnemyType.Straight:
                 ShootStraight();
-                AudioManager.Instance.spiralSoundSource.Stop();
 
                 break;
             case EnemyType.Spread:
                 ShootSpread();
-                AudioManager.Instance.spiralSoundSource.Stop();
 
                 break;
             case EnemyType.Circular:
                 ShootCircular();
-                AudioManager.Instance.spiralSoundSource.Stop();
 
                 break;
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
-                AudioManager.Instance.spiralSoundSource.Stop();
 
                 break;
 
@@ -149,7 +150,6 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyType.Random:
                 ShootRandom();
-                AudioManager.Instance.spiralSoundSource.Stop();
 
                 break;
         }
@@ -236,27 +236,17 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator ShootSpiral()
     {
-        int bulletsCount = 20;
-        float angle = 0f;
-        // Play spiral shooting sound
-        if (AudioManager.Instance.spiralSoundSource.clip != AudioManager.Instance.spiralShootClip)
-        {
-            AudioManager.Instance.spiralSoundSource.clip = AudioManager.Instance.spiralShootClip;
-        }
-
-        if (!AudioManager.Instance.spiralSoundSource.isPlaying)
-        {
-          AudioManager.Instance.spiralSoundSource.loop = true;
-            AudioManager.Instance.spiralSoundSource.Play();
-        }
+        int bulletsCount = 10;
+        float angle = 90f;
+        
         
         for (int i = 0; i < bulletsCount; i++)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
 
 
             if (isFrozen)
             {
-                AudioManager.Instance.spiralSoundSource.Stop(); // Stop sound if frozen
                 yield break; // Dừng bắn nếu enemy đang freeze
             }
 
@@ -274,23 +264,35 @@ public class EnemyController : MonoBehaviour
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
-        // Stop spiral shooting sound when done
+      
     }
+   
+        
+    
+   
 
     void ShootRandom()
     {
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
-
-        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f))
-            .normalized;
-        GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = Quaternion.identity;
-
-        EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
-        bulletController.SetDirection(randomDirection);
-        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyShootClip);
+    
+        int bulletCount = 5; // Số viên đạn bắn cùng lúc (có thể điều chỉnh)
+        for (int i = 0; i < bulletCount; i++)
+        {
+            // Chọn góc ngẫu nhiên từ -45 đến 45 độ, chuyển sang radians (-PI/4, PI/4)
+            float angle = UnityEngine.Random.Range(-Mathf.PI / 4, Mathf.PI / 4);
+            // Hướng cơ sở của Enemy là về bên trái, 
+             Vector2 randomDirection = new Vector2(Mathf.Cos(angle + Mathf.PI), Mathf.Sin(angle + Mathf.PI));
+        
+            GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+        
+            EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
+            bulletController.SetDirection(randomDirection);
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+        }
     }
+
 
     void Update()
     {
@@ -307,6 +309,8 @@ public class EnemyController : MonoBehaviour
     {
         if (!isShieldActive)
         {
+          
+            
             if (animator != null)
             {
                 animator.SetTrigger("Die"); // Kích hoạt trạng thái Die
@@ -315,7 +319,7 @@ public class EnemyController : MonoBehaviour
             {
                 Destroy(gameObject); // Hủy ngay nếu không có Animator
             }
-// Thông báo cho GameManager để cập nhật số enemy bị tiêu diệt và nâng cấp enemy mới
+            // Thông báo cho GameManager để cập nhật số enemy bị tiêu diệt và nâng cấp enemy mới
             GameManager.Instance.EnemyKilled(enemyType);
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyDieClip);

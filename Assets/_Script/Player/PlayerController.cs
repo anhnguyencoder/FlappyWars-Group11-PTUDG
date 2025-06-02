@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
         { EnemyType.Circular, 0.5f }, //bắn 8 hướng
         { EnemyType.Burst, 1.5f }, //bắn theo đợt 
 
-        { EnemyType.Spiral, 2.5f }, //bắn xoắn ốc
-        { EnemyType.Random, 0.1f } //bắn ngẫu nhiên hướng
+        { EnemyType.Spiral, 1.5f }, //bắn xoắn ốc
+        { EnemyType.Random, 1.5f } //bắn ngẫu nhiên hướng
     };
 
     public float bulletSize ;
@@ -281,8 +281,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ShootSpiral()
     {
-        int bulletsCount = 20;
-        float angle = 0f;
+        int bulletsCount = 10;
+        float angle = 90f;
         for (int i = 0; i < bulletsCount; i++)
         {
 
@@ -306,16 +306,23 @@ public class PlayerController : MonoBehaviour
     void ShootRandom()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
-
-        Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(0.5f, 1f), UnityEngine.Random.Range(-1f, 1f))
-            .normalized;
-        GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
-        bullet.transform.position = bulletSpawnPoint.position;
-        bullet.transform.rotation = Quaternion.identity;
-
-        PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
-        bulletController.SetDirection(randomDirection);
-        bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước
+    
+        int bulletCount = 5; // Số viên đạn bắn cùng lúc (có thể điều chỉnh)
+        for (int i = 0; i < bulletCount; i++)
+        {
+            // Chọn góc ngẫu nhiên từ -45 đến 45 độ, chuyển sang radians (-PI/4, PI/4)
+            float angle = UnityEngine.Random.Range(-Mathf.PI / 4, Mathf.PI / 4);
+            // Hướng cơ sở của Player là về bên phải (1,0)
+            Vector2 randomDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        
+            GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
+            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.rotation = Quaternion.identity;
+        
+            PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
+            bulletController.SetDirection(randomDirection);
+            bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
+        }
     }
 
     public void Die()

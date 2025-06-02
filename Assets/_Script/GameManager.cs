@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
 
         // Random loại bắn cho enemy
         enemyController.enemyType = (EnemyType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(EnemyType)).Length);
+        
+
         Debug.Log($"Spawned enemy with type: {enemyController.enemyType}");
     }
 

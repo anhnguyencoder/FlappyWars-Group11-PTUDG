@@ -234,6 +234,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
         if (pausePanel != null)
         {
+            
             pausePanel.SetActive(true);
            
         }
