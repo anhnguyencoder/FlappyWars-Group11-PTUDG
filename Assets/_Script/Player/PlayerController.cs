@@ -111,19 +111,46 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Application.isMobilePlatform)  // Hoặc: if (Input.touchSupported)
         {
-            Jump();
+            // Xử lý input trên điện thoại
+            if (Input.touchCount > 0)
+            {
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        // Nếu chạm vào nửa bên trái màn hình thì nhảy, bên phải thì bắn
+                        if (touch.position.x < Screen.width / 2)
+                        {
+                            Jump();
+                        }
+                        else
+                        {
+                            Shoot();
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Xử lý input trên PC: Ví dụ, khi nhấn chuột bất kỳ chỗ nào, chỉ bắn
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
+            // Ngoài ra, bạn có thể sử dụng phím để nhảy, ví dụ Space
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-
-        // Cập nhật UI cooldown
+        // Cập nhật các  cooldown
         UpdateCooldownUI();
     }
+
 
     void Shoot()
     {
