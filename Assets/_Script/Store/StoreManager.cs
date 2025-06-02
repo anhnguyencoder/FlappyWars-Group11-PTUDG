@@ -43,7 +43,7 @@ public class StoreManager : MonoBehaviour {
 
     void UpdateGoldUI() {
         if (goldText != null)
-            goldText.text = "Gold: " + PlayerData.gold;
+            goldText.text = "" + PlayerData.gold;
     }
     
     

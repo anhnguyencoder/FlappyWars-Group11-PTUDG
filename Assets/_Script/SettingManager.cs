@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
+
     [Header("Panels")]
     public GameObject settingsPanel;         // Panel cài đặt (SettingsPanel)
     public GameObject confirmationDialog;    // Cửa sổ xác nhận (ConfirmationDialog)
@@ -16,6 +17,7 @@ public class SettingManager : MonoBehaviour
     [Header("Volume Sliders")]
     public Slider bgmVolumeSlider;      // Slider điều chỉnh âm lượng nhạc nền
     public Slider sfxVolumeSlider;      // Slider điều chỉnh âm lượng hiệu ứng âm thanh
+    
 
     void Start()
     {

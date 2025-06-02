@@ -40,6 +40,12 @@ public class UIManager : MonoBehaviour
     
     private int highScore = 0;
     private bool isGameStarted = false;
+    [Header("Pause Panel UI")]
+    public GameObject pausePanel;              // Panel pause, set inactive ban đầu
+    public TextMeshProUGUI pauseScoreText;     // Hiển thị điểm hiện tại trên Pause Panel
+    public Button resumeButton;                // Nút chơi tiếp (Resume)
+    public Button pauseMenuButton;             // Nút Menu
+    public Button pauseSettingButton;          // Nút Setting (mở SettingsPanel)
 
     void Awake()
     {
@@ -69,6 +75,25 @@ public class UIManager : MonoBehaviour
         restartButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
         UpdateGoldText();
+        // Gán sự kiện cho Pause Panel
+        resumeButton.onClick.AddListener(ResumeGame);
+        pauseMenuButton.onClick.AddListener(ReturnToMainMenu);
+        pauseSettingButton.onClick.AddListener(OpenSettings);
+
+        // Đảm bảo PausePanel bị ẩn khi game bắt đầu
+        if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Nếu pausePanel đang hiển thị, thì resume; nếu không, pause.
+            if (pausePanel.activeSelf)
+                ResumeGame();
+            else
+                PauseGame();
+        }
     }
    
     // Cập nhật UI cooldown
@@ -147,12 +172,12 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateGoldText() {
         if(goldText != null)
-            goldText.text = "Gold: " + PlayerData.gold;
+            goldText.text = "" + PlayerData.gold;
     }
     // Phương thức hiển thị số vàng thưởng sau mỗi enemy bị tiêu diệt
     public void ShowGoldReward(int reward) {
         if (goldRewardText != null) {
-            goldRewardText.text = "+" + reward.ToString() + " gold";
+            goldRewardText.text = "+" + reward.ToString();
             goldRewardText.gameObject.SetActive(true);
             // Bắt đầu coroutine ẩn sau 2 giây (có thể điều chỉnh thời gian)
             StartCoroutine(FadeOutRewardText());
@@ -203,6 +228,33 @@ public class UIManager : MonoBehaviour
             coinEffect.duration = Random.Range(0.8f, 1.2f);
         }
     }
+// --- Các phương thức cho Pause Game ---
+    public void PauseGame()
+    {
+        // Set Time.timeScale = 0 để tạm dừng game
+        Time.timeScale = 0;
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+            // Cập nhật score hiện tại vào pauseScoreText
+            if (pauseScoreText != null)
+                pauseScoreText.text = "Score: " + score;
+        }
+    }
 
+    public void ResumeGame()
+    {
+        if (pausePanel != null)
+            pausePanel.SetActive(false);
+        // Khôi phục Time.timeScale
+        Time.timeScale = 1;
+    }
+    
+    // Mở Settings (sử dụng phương thức đã có trong SettingManager hoặc AudioManager)
+    public void OpenSettings()
+    {
+      
+
+    }
 
 }
