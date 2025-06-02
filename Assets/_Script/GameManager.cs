@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("Enemy upgraded! New max enemy health: " + currentEnemyMaxHealth);
         }
         // Tính toán số gold thưởng dựa theo số enemy đã bị tiêu diệt
-        // Enemy thứ n: thưởng random từ n*100 đến n*100 + 100
-        int minGold = totalEnemiesKilled * 100;
-        int maxGold = totalEnemiesKilled * 100 + 100; // Random.Range(int, int) với max là exclusive, nên dùng maxGold + 1
+        // Enemy thứ n: thưởng random từ n*10 đến n*10 + 10
+        int minGold = totalEnemiesKilled * 10;
+        int maxGold = totalEnemiesKilled * 10 + 10; // Random.Range(int, int) với max là exclusive, nên dùng maxGold + 1
         int goldReward = UnityEngine.Random.Range(minGold, maxGold + 1);
         Debug.Log("Awarded gold: " + goldReward);
         PlayerData.gold += goldReward;
@@ -48,7 +48,11 @@ public class GameManager : MonoBehaviour
         {
             UIManager.Instance.UpdateGoldText();
             UIManager.Instance.ShowGoldReward(goldReward);
-            
+            // Giả sử vị trí của enemy là currentEnemy.transform.position
+            if (currentEnemy != null && UIManager.Instance.goldText != null && UIManager.Instance.goldFlyEffectPrefab != null)
+            {
+                UIManager.Instance.ShowGoldFlyEffects(currentEnemy.transform.position);
+            }
         }
         PlayerController.Instance.SetShootingStyle(enemyType); // Cập nhật style bắn cho Player
 

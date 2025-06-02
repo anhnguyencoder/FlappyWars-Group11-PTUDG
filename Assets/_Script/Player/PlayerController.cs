@@ -246,13 +246,13 @@ public class PlayerController : MonoBehaviour
 
             GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
             bullet.transform.position = bulletSpawnPoint.position;
-            bullet.transform.rotation = Quaternion.identity;
+            bullet.transform.rotation =  Quaternion.identity;
 
             PlayerBulletController bulletController = bullet.GetComponent<PlayerBulletController>();
             bulletController.SetDirection(direction);
 
             bulletController.SetBulletSize(bulletSize); // Áp dụng kích thước
-            angle += Mathf.PI / 10;
+            angle -= Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
     }

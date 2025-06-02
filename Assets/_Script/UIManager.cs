@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [Header("Player Gold UI")]
     public TextMeshProUGUI goldText; // GoldText hiển thị trên GameScene
     public TextMeshProUGUI goldRewardText; // Hiển thị số vàng vừa nhận được
+    public GameObject goldFlyEffectPrefab;  // Prefab GoldFlyEffect, gán qua Inspector
     
     [Header("Game Over UI")]
     public GameObject gameOverPanel;
@@ -162,4 +163,46 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         goldRewardText.gameObject.SetActive(false);
     }
+    
+    public void ShowGoldFlyEffects(Vector3 enemyWorldPosition)
+    {
+        // Lấy Canvas chứa Gold Text
+        Canvas canvas = goldText.GetComponentInParent<Canvas>();
+        if (canvas == null)
+            return;
+
+        // Lấy RectTransform của Canvas
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+
+        // Chuyển vị trí enemy từ world sang screen
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(enemyWorldPosition);
+
+        // Chuyển screenPoint thành local position của canvas
+        Vector2 baseLocalPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, canvas.worldCamera, out baseLocalPoint);
+
+        // Số lượng đồng xu muốn xuất hiện, ví dụ 8
+        int coinCount = 8;
+        float spreadRadius = 80f; // bán kính phát xung quanh (có thể điều chỉnh)
+
+        for (int i = 0; i < coinCount; i++)
+        {
+            // Instantiate prefab đồng xu làm con của Canvas
+            GameObject coinObj = Instantiate(goldFlyEffectPrefab, canvas.transform);
+            RectTransform coinRect = coinObj.GetComponent<RectTransform>();
+
+            // Tính offset ngẫu nhiên trong vòng tròn bán kính spreadRadius
+            Vector2 randomOffset = Random.insideUnitCircle * spreadRadius;
+            coinRect.anchoredPosition = baseLocalPoint + randomOffset;
+
+            // Gán target của hiệu ứng là RectTransform của Gold Text
+            GoldFlyEffectDOTween coinEffect = coinObj.GetComponent<GoldFlyEffectDOTween>();
+            coinEffect.target = goldText.GetComponent<RectTransform>();
+
+            
+            coinEffect.duration = Random.Range(0.8f, 1.2f);
+        }
+    }
+
+
 }

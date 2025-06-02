@@ -628,6 +628,7 @@ MonoBehaviour:
   scoreText: {fileID: 897657145}
   goldText: {fileID: 1111539450}
   goldRewardText: {fileID: 864749882}
+  goldFlyEffectPrefab: {fileID: 7768620595961188493, guid: 0fc4101e2f961d04c8790484a44170a7, type: 3}
   gameOverPanel: {fileID: 633209269}
   finalScoreText: {fileID: 1588314340}
   highScoreText: {fileID: 1076059149}
