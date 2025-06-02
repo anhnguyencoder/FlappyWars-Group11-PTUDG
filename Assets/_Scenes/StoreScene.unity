@@ -7418,12 +7418,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d3863d764b48e5d4b90016f1459e8ada, type: 3}
   - {fileID: 8300000, guid: eb318245f9dab8c49a9347138fe6c2f5, type: 3}
   playerHitClip: {fileID: 8300000, guid: df6d5d44788845d479958e74f76b15c8, type: 3}
-  playerDieClip: {fileID: 8300000, guid: 3147c85b6937a964e8b850ee59002432, type: 3}
+  playerDieClip: {fileID: 8300000, guid: cf47d4932e23efb4d962b626fcdb1626, type: 3}
   enemyHitClip: {fileID: 8300000, guid: df6d5d44788845d479958e74f76b15c8, type: 3}
-  enemyDieClip: {fileID: 8300000, guid: 3147c85b6937a964e8b850ee59002432, type: 3}
+  enemyDieClip: {fileID: 8300000, guid: cf47d4932e23efb4d962b626fcdb1626, type: 3}
   playerShootClip: {fileID: 8300000, guid: 47466627e5a0a644d88b165455460548, type: 3}
   enemyShootClip: {fileID: 8300000, guid: 47466627e5a0a644d88b165455460548, type: 3}
-  powerUpClips: []
+  powerUpClips:
+  - {fileID: 8300000, guid: 51eaea0e31d656c4cae499928337711e, type: 3}
+  - {fileID: 8300000, guid: 51eaea0e31d656c4cae499928337711e, type: 3}
+  - {fileID: 8300000, guid: 76b6699b2b1205d449376fc2b11c78f5, type: 3}
+  - {fileID: 8300000, guid: 27f73788b2689e84a9a9bce92e0f95e6, type: 3}
+  - {fileID: 8300000, guid: 2578afd1f87981c41b545ce58ac40af7, type: 3}
+  - {fileID: 8300000, guid: 5694fb3e95ec38747b3ad56281c1349a, type: 3}
+  - {fileID: 8300000, guid: 1413468a6cdef2e47b3478465f3f9108, type: 3}
   storeBuyClip: {fileID: 8300000, guid: 49b3cfdc0a330cb4f8bbef00c1ea74a5, type: 3}
   bgmVolume: 1
   sfxVolume: 1
