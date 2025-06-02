@@ -28,7 +28,7 @@ public class PowerUpSpawner : MonoBehaviour
     {
         if (powerUpPrefabs.Count == 0) return;
         
-        float randomX = Random.Range(-7f, 7f);
+        float randomX = Random.Range(-5.5f, 5.5f);
         Vector3 spawnPos = new Vector3(randomX, 6f, 0);
         
         int randomIndex = Random.Range(0, powerUpPrefabs.Count);

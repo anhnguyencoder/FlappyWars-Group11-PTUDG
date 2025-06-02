@@ -20,7 +20,7 @@ public class PowerUp : MonoBehaviour
     //tốc độ rơi của Power Up
     public float fallSpeed = 2f;
     //bán kính vụ nổ
-    private float explosionRadius = 2f;
+    private float explosionRadius = 4f;
     private Animator animator; // Tham chiếu đến Animator
 // bom chưa đươc kích hoạt
     public bool isBomb = false;
@@ -55,6 +55,9 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("PlayerBullet"))
         {
+            // Trả viên đạn về khi power up va chạm với nó
+            ObjectPoolForPlayer.Instance.ReturnBullet(other.gameObject);
+            ApplyEffect(PlayerController.Instance);
             if (isBomb)
             {
                 return;
@@ -63,13 +66,13 @@ public class PowerUp : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            // Trả viên đạn về khi power up va chạm với nó
-            ObjectPoolForPlayer.Instance.ReturnBullet(other.gameObject);
-            ApplyEffect(PlayerController.Instance);
         }
         else if (other.CompareTag("EnemyBullet"))
         {
 
+            // Trả viên đạn về khi power up va chạm với nó
+            ObjectPoolForEnemy.Instance.ReturnBullet(other.gameObject);
+            ApplyEffect(GameManager.Instance.GetCurrentEnemy());
         
             if (isBomb)
             {
@@ -79,9 +82,6 @@ public class PowerUp : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            // Trả viên đạn về khi power up va chạm với nó
-            ObjectPoolForEnemy.Instance.ReturnBullet(other.gameObject);
-            ApplyEffect(GameManager.Instance.GetCurrentEnemy());
 
         }
     }

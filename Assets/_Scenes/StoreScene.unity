@@ -7408,10 +7408,13 @@ MonoBehaviour:
   spiralSoundSource: {fileID: 2083908396}
   spiralShootClip: {fileID: 8300000, guid: 0c9ffcc5e37160746a0d8d83d9f294a1, type: 3}
   menuMusicClips:
-  - {fileID: 8300000, guid: 7a4905c5a83530347934b50be17abc98, type: 3}
+  - {fileID: 8300000, guid: 3ffae309f2d9ba44a9aed63416ab7359, type: 3}
   gameplayMusicClips:
-  - {fileID: 8300000, guid: d3863d764b48e5d4b90016f1459e8ada, type: 3}
-  - {fileID: 8300000, guid: eb318245f9dab8c49a9347138fe6c2f5, type: 3}
+  - {fileID: 8300000, guid: 9ad3ef2f080da3c4a99b0b378fd8ced7, type: 3}
+  - {fileID: 8300000, guid: aae95cdaa5113734085a955dd5539d09, type: 3}
+  - {fileID: 8300000, guid: e98519adc5530864292cf291d466b6cc, type: 3}
+  - {fileID: 8300000, guid: e12a20e820b4fb04ba901d3ada5bf633, type: 3}
+  - {fileID: 8300000, guid: 6e551600dc7fb33438a27180cf190699, type: 3}
   playerHitClip: {fileID: 8300000, guid: df6d5d44788845d479958e74f76b15c8, type: 3}
   playerDieClip: {fileID: 8300000, guid: cf47d4932e23efb4d962b626fcdb1626, type: 3}
   enemyHitClip: {fileID: 8300000, guid: df6d5d44788845d479958e74f76b15c8, type: 3}
