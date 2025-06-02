@@ -4398,7 +4398,7 @@ MonoBehaviour:
   - {fileID: 2058435381953877205, guid: 0d0485efe3980b34a82ef2656b33c961, type: 3}
   - {fileID: 8642193702473942788, guid: 327f1f098da1dc4478dae576689438e0, type: 3}
   minSpawnTime: 5
-  maxSpawnTime: 10
+  maxSpawnTime: 8
 --- !u!4 &990931379
 Transform:
   m_ObjectHideFlags: 0

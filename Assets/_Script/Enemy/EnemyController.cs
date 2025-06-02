@@ -236,7 +236,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator ShootSpiral()
     {
-        int bulletsCount = 10;
+        int bulletsCount = 5;
         float angle = 90f;
         
         

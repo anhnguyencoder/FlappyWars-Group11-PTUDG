@@ -55,9 +55,9 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("PlayerBullet"))
         {
-            ApplyEffect(PlayerController.Instance);
             // Trả viên đạn về khi power up va chạm với nó
             ObjectPoolForPlayer.Instance.ReturnBullet(other.gameObject);
+            ApplyEffect(PlayerController.Instance);
             if (isBomb)
             {
                 return;
@@ -69,10 +69,7 @@ public class PowerUp : MonoBehaviour
         }
         else if (other.CompareTag("EnemyBullet"))
         {
-            ApplyEffect(GameManager.Instance.GetCurrentEnemy());
-            // Trả viên đạn về khi power up va chạm với nó
 
-            ObjectPoolForEnemy.Instance.ReturnBullet(other.gameObject);
         
             if (isBomb)
             {
@@ -82,6 +79,9 @@ public class PowerUp : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            // Trả viên đạn về khi power up va chạm với nó
+            ObjectPoolForEnemy.Instance.ReturnBullet(other.gameObject);
+            ApplyEffect(GameManager.Instance.GetCurrentEnemy());
 
         }
     }

@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 9f; // Lực nhảy lên
     private static Rigidbody2D rb;
     public Transform bulletSpawnPoint;
-    private EnemyType currentShootingStyle = EnemyType.Straight; // Mặc định kiểu bắn ban đầu
+    private EnemyType currentShootingStyle = EnemyType.Spiral; // Mặc định kiểu bắn ban đầu
     private float lastShootTime = 0f; // Thời điểm bắn lần cuối
     private bool isShieldActive = false;
 
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         { EnemyType.Circular, 0.5f }, //bắn 8 hướng
         { EnemyType.Burst, 1.5f }, //bắn theo đợt 
 
-        { EnemyType.Spiral, 1.5f }, //bắn xoắn ốc
+        { EnemyType.Spiral, 1f }, //bắn xoắn ốc
         { EnemyType.Random, 1.5f } //bắn ngẫu nhiên hướng
     };
 
@@ -281,8 +281,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ShootSpiral()
     {
-        int bulletsCount = 10;
-        float angle = 90f;
+        int bulletsCount = 5;
+        float angle = 120f;
         for (int i = 0; i < bulletsCount; i++)
         {
 
