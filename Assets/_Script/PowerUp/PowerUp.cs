@@ -24,6 +24,7 @@ public class PowerUp : MonoBehaviour
     private Animator animator; // Tham chiếu đến Animator
 // bom chưa đươc kích hoạt
     public bool isBomb = false;
+    public GameObject enemyHealingPrefab; 
 
    
     // Dictionary chứa thời gian hiệu lực cho từng Power-Up
@@ -161,6 +162,14 @@ public class PowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Heal:
                     enemy.Heal(1);
+                    // Tạo hiệu ứng enemyHealing:
+                    if (enemyHealingPrefab != null)
+                    {
+                        // Instantiate enemyHealing tại vị trí enemy
+                        GameObject healingEffect = Instantiate(enemyHealingPrefab, enemy.transform.position, Quaternion.identity);
+                        // Để hiệu ứng luôn đi theo enemy, set nó làm con của enemy
+                        healingEffect.transform.SetParent(enemy.transform);
+                    }
                     break;
             }
         }

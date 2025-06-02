@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   fallSpeed: 2
+  isBomb: 0
+  enemyHealingPrefab: {fileID: 0}
 --- !u!212 &3483694792137404533
 SpriteRenderer:
   m_ObjectHideFlags: 0

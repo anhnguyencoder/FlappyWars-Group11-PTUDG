@@ -49,6 +49,7 @@ MonoBehaviour:
   type: 3
   fallSpeed: 2
   isBomb: 0
+  enemyHealingPrefab: {fileID: 0}
 --- !u!212 &7024395235774341632
 SpriteRenderer:
   m_ObjectHideFlags: 0
