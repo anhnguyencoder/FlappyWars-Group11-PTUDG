@@ -366,7 +366,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: -7679294837404564279, guid: 9176962214b43bc45ae68c2f7bc7b380, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -431,8 +431,8 @@ MonoBehaviour:
   enemyType: 0
   moveSpeed: 2
   moveInterval: 2
-  bulletSize: 0.036
-  bodySize: 0.31
+  bulletSize: 0.046
+  bodySize: 0.42
   maxHealth: 0
   currentHealth: 0
   enemyHealthText: {fileID: 6204877585464742845}
@@ -531,7 +531,7 @@ RectTransform:
   m_GameObject: {fileID: 8990779771306703112}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 290.32263}
-  m_LocalScale: {x: -0.02987097, y: 0.02987097, z: 0.02987097}
+  m_LocalScale: {x: -0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8855245343520194652}
@@ -542,7 +542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.2, y: 3.5}
+  m_AnchoredPosition: {x: 0.2, y: 2}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2578382803584263351
