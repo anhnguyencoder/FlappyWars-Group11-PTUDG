@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
 
    
 
-    private int score = 0; // Điểm số của người chơi
+    public int score = 0; // Điểm số của người chơi
    
     
     private int highScore = 0;

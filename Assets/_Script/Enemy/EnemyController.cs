@@ -125,15 +125,23 @@ public class EnemyController : MonoBehaviour
         {
             case EnemyType.Straight:
                 ShootStraight();
+                AudioManager.Instance.spiralSoundSource.Stop();
+
                 break;
             case EnemyType.Spread:
                 ShootSpread();
+                AudioManager.Instance.spiralSoundSource.Stop();
+
                 break;
             case EnemyType.Circular:
                 ShootCircular();
+                AudioManager.Instance.spiralSoundSource.Stop();
+
                 break;
             case EnemyType.Burst:
                 StartCoroutine(ShootBurst());
+                AudioManager.Instance.spiralSoundSource.Stop();
+
                 break;
 
             case EnemyType.Spiral:
@@ -141,6 +149,8 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyType.Random:
                 ShootRandom();
+                AudioManager.Instance.spiralSoundSource.Stop();
+
                 break;
         }
     }
@@ -228,12 +238,28 @@ public class EnemyController : MonoBehaviour
     {
         int bulletsCount = 20;
         float angle = 0f;
+        // Play spiral shooting sound
+        if (AudioManager.Instance.spiralSoundSource.clip != AudioManager.Instance.spiralShootClip)
+        {
+            AudioManager.Instance.spiralSoundSource.clip = AudioManager.Instance.spiralShootClip;
+        }
+
+        if (!AudioManager.Instance.spiralSoundSource.isPlaying)
+        {
+          AudioManager.Instance.spiralSoundSource.loop = true;
+            AudioManager.Instance.spiralSoundSource.Play();
+        }
+        
         for (int i = 0; i < bulletsCount; i++)
         {
-           
+
 
             if (isFrozen)
+            {
+                AudioManager.Instance.spiralSoundSource.Stop(); // Stop sound if frozen
                 yield break; // Dừng bắn nếu enemy đang freeze
+            }
+
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
             GameObject bullet = ObjectPoolForEnemy.Instance.GetBullet();
@@ -243,11 +269,12 @@ public class EnemyController : MonoBehaviour
             EnemyBulletController bulletController = bullet.GetComponent<EnemyBulletController>();
             bulletController.SetDirection(direction);
             bulletController.SetBulletSize(_bulletSize); // Áp dụng kích thước đạn hiện tại của enemy
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
-
+            
+      
             angle += Mathf.PI / 10;
             yield return new WaitForSeconds(0.1f);
         }
+        // Stop spiral shooting sound when done
     }
 
     void ShootRandom()

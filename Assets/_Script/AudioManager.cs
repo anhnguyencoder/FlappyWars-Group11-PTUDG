@@ -9,6 +9,10 @@ public class AudioManager : MonoBehaviour {
     [Tooltip("AudioSource cho hiệu ứng âm thanh")]
     public AudioSource sfxSource;
 
+    [Header("Enemy shoot Spiral Sound Settings")]
+    public AudioSource spiralSoundSource;
+    public AudioClip spiralShootClip;
+
     [Header("Menu & Store Music")]
     [Tooltip("Danh sách các bài nhạc cho Menu & Store")]
     public AudioClip[] menuMusicClips; 
