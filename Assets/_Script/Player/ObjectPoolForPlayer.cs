@@ -27,11 +27,11 @@ public class ObjectPoolForPlayer : MonoBehaviour
 
     public GameObject GetBullet()
     {
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
 
-        //if (PlayerController.Instance.isFrozen) return null; // Không cấp viên đạn nếu đóng băng
+
         if (bulletPool.Count > 0)
         {
+       AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
             GameObject bullet = bulletPool.Dequeue();
             bullet.SetActive(true);
             return bullet;

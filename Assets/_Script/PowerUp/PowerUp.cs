@@ -30,10 +30,10 @@ public class PowerUp : MonoBehaviour
     // Dictionary chứa thời gian hiệu lực cho từng Power-Up
     private Dictionary<PowerUpType, float> powerUpDurations = new Dictionary<PowerUpType, float>
     {
-        { PowerUpType.BulletSizeX2, 5f },
-        { PowerUpType.BulletSizeX3, 5f },
-        { PowerUpType.BodySizeX2, 4f },
-        { PowerUpType.Shield, 6f },
+        { PowerUpType.BulletSizeX2, 3f },
+        { PowerUpType.BulletSizeX3, 3f },
+        { PowerUpType.BodySizeX2, 3f },
+        { PowerUpType.Shield, 3f },
         { PowerUpType.Heal, 0f },
         { PowerUpType.Freeze, 3f },
         { PowerUpType.Bomb, 0f }
