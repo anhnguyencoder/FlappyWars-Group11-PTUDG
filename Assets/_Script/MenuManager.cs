@@ -21,7 +21,8 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("GameScene"); // Chuyển sang Game Scene
         mainMenuPanel.SetActive(false);
         Time.timeScale = 1; // Bắt đầu game
-        
+        AudioManager.Instance.PlayRandomMenuMusic();
+
     }
     public void OpenStore()
     {

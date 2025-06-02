@@ -23,6 +23,9 @@ public class StoreManager : MonoBehaviour {
         foreach (var row in upgradeRows) {
             row.UpdateRow(PlayerData.gold);
         }
+        
+        AudioManager.Instance.PlayRandomMenuMusic();
+
     }
 
     public void BuyUpgrade(UpgradeRow row) {
@@ -32,6 +35,8 @@ public class StoreManager : MonoBehaviour {
             row.Upgrade();
             UpdateGoldUI();
             row.UpdateRow(PlayerData.gold);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.storeBuyClip);
+
             SaveUpgrades();
         }
     }

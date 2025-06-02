@@ -27,6 +27,7 @@ public class ObjectPoolForEnemy : MonoBehaviour
 
     public GameObject GetBullet()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyShootClip);
         if (bulletPool.Count > 0)
         {
             GameObject bullet = bulletPool.Dequeue();
@@ -38,6 +39,7 @@ public class ObjectPoolForEnemy : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab);
             return newBullet;
         }
+
     }
 
     public void ReturnBullet(GameObject bullet)

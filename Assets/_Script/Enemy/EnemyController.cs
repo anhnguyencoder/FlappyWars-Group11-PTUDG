@@ -105,6 +105,8 @@ public class EnemyController : MonoBehaviour
         {
             Die();
         }
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyHitClip);
+
         // Tăng điểm cho người chơi 
         UIManager.Instance.AddScore(1);
     }
@@ -274,7 +276,8 @@ public class EnemyController : MonoBehaviour
 // Thông báo cho GameManager để cập nhật số enemy bị tiêu diệt và nâng cấp enemy mới
             GameManager.Instance.EnemyKilled(enemyType);
 
-            
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyDieClip);
+
         }
     }
 
@@ -378,7 +381,6 @@ public class EnemyController : MonoBehaviour
     {
         if (currentHealth < maxHealth)
         {
-        animator.SetTrigger("Enemy Heal");
             currentHealth += amount;
             if (currentHealth > maxHealth) currentHealth = maxHealth;
             UpdateEnemyHealthUI(currentHealth, maxHealth);

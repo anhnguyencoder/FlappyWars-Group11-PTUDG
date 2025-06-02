@@ -104,6 +104,8 @@ public class PlayerController : MonoBehaviour
                // healthBar.SetActive(health > 0);
 
             }
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.playerHitClip);
+
         }   
     }
 
@@ -126,6 +128,7 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         if (isFrozen) return; // Không bắn nếu đang bị đóng băng
+        
         float cooldown = shootingCooldowns[currentShootingStyle];
 
         // Kiểm tra thời gian cooldown
@@ -166,6 +169,7 @@ public class PlayerController : MonoBehaviour
 
     void ShootStraight()
     {
+        
         GameObject bullet = ObjectPoolForPlayer.Instance.GetBullet();
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = Quaternion.identity;
@@ -274,6 +278,8 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
         UIManager.Instance.GameOver();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerDieClip);
+
     }
 
     void UpdateCooldownUI()

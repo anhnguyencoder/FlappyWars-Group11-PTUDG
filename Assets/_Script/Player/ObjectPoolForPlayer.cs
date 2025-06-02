@@ -27,6 +27,8 @@ public class ObjectPoolForPlayer : MonoBehaviour
 
     public GameObject GetBullet()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShootClip);
+
         //if (PlayerController.Instance.isFrozen) return null; // Không cấp viên đạn nếu đóng băng
         if (bulletPool.Count > 0)
         {
@@ -39,6 +41,7 @@ public class ObjectPoolForPlayer : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab);
             return newBullet;
         }
+
     }
 
     public void ReturnBullet(GameObject bullet)

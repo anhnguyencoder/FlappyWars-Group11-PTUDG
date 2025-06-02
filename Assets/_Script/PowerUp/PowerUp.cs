@@ -114,28 +114,41 @@ public class PowerUp : MonoBehaviour
             {
                 case PowerUpType.BulletSizeX2:
                     player.ModifyBulletSize(2, baseDuration);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[0]);
                     break;
                 case PowerUpType.BulletSizeX3:
                     player.ModifyBulletSize(3, baseDuration);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[1]);
+
                     break;
                 case PowerUpType.BodySizeX2:
                     player.ModifyBodySize(2, baseDuration);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[2]);
+
                     break;
                 case PowerUpType.Shield:
                     player.ActivateShield(baseDuration);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[3]);
+
                     break;
                 case PowerUpType.Heal:
                     // Tăng lượng heal theo upgrade: mặc định là 1, cộng thêm từ UpgradeManager
                     int extraHeal = UpgradeManager.Instance.additionalHealAmount;
                     player.Heal(1 + extraHeal);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[4]);
+
                     break;
                 case PowerUpType.Freeze:
                     player.Freeze(baseDuration);
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[5]);
+
                     break;
                 case PowerUpType.Bomb:
                     //nếu isbomb=true thì Bomb sẽ không bị destroy ngay mà sẽ destroy sau khi animation bomb nổ xong
                     isBomb = true;
                     Explode();
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[6]);
+
                     break;
             }
         }
@@ -156,6 +169,8 @@ public class PowerUp : MonoBehaviour
                 case PowerUpType.Bomb:
                     isBomb = true;
                     Explode();
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpClips[6]);
+
                     break;
                 case PowerUpType.Shield:
                     enemy.ActivateShield(baseDuration);

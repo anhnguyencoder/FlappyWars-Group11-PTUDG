@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnEnemy();
+        AudioManager.Instance.PlayRandomGameplayMusic();
+
     }
 
     public void EnemyKilled(EnemyType enemyType)
