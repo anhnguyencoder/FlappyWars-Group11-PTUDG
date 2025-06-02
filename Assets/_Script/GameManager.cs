@@ -45,7 +45,11 @@ public class GameManager : MonoBehaviour
     
         // Nếu UIManager đã khởi tạo thì cập nhật lại GoldText trên UI
         if (UIManager.Instance != null)
+        {
             UIManager.Instance.UpdateGoldText();
+            UIManager.Instance.ShowGoldReward(goldReward);
+            
+        }
         PlayerController.Instance.SetShootingStyle(enemyType); // Cập nhật style bắn cho Player
 
         // Đặt currentEnemy là null để cho phép sinh kẻ địch mới

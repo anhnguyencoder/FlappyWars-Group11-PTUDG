@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,7 @@ public class UIManager : MonoBehaviour
     
     [Header("Player Gold UI")]
     public TextMeshProUGUI goldText; // GoldText hiển thị trên GameScene
+    public TextMeshProUGUI goldRewardText; // Hiển thị số vàng vừa nhận được
     
     [Header("Game Over UI")]
     public GameObject gameOverPanel;
@@ -145,5 +147,19 @@ public class UIManager : MonoBehaviour
     public void UpdateGoldText() {
         if(goldText != null)
             goldText.text = "Gold: " + PlayerData.gold;
+    }
+    // Phương thức hiển thị số vàng thưởng sau mỗi enemy bị tiêu diệt
+    public void ShowGoldReward(int reward) {
+        if (goldRewardText != null) {
+            goldRewardText.text = "+" + reward.ToString() + " gold";
+            goldRewardText.gameObject.SetActive(true);
+            // Bắt đầu coroutine ẩn sau 2 giây (có thể điều chỉnh thời gian)
+            StartCoroutine(FadeOutRewardText());
+        }
+        
+    }
+    private IEnumerator FadeOutRewardText() {
+        yield return new WaitForSeconds(2f);
+        goldRewardText.gameObject.SetActive(false);
     }
 }
