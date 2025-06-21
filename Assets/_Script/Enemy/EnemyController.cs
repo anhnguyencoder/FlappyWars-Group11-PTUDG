@@ -114,7 +114,7 @@ public class EnemyController : MonoBehaviour
     }
     void ChangeDirection()
     {
-        targetY = UnityEngine.Random.Range(-5f, 5f);
+        targetY = UnityEngine.Random.Range(-3.6f, 5f);
     }
 
     void Shoot()
