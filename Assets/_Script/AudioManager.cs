@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour {
     public float sfxVolume = 1f;
 
     void Awake() {
-        // Thiết lập singleton và giữ cho đối tượng không bị phá hủy khi chuyển scene
+        // Thiết lập singleton và giữ cho đối tượng không bị phá hủy khi chuyển scene.
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
