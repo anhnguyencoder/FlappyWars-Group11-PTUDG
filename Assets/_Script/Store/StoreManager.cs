@@ -7,7 +7,7 @@ public class StoreManager : MonoBehaviour {
     public static StoreManager Instance;
 
     [Header("Player Resources")]
-    public TextMeshProUGUI goldText;          // Text hiển thị số vàng hiện tại
+    public TextMeshProUGUI goldText;          // Text hiển thị số vàng hiện tại.
 
     [Header("Upgrade Rows")]
     public UpgradeRow[] upgradeRows;  // Liên kết các UpgradeRow (được kéo thả từ ScrollView)
