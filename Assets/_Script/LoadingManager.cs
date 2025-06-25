@@ -27,7 +27,7 @@ public class LoadingManager : MonoBehaviour {
         }
         // StoreScene đã được load. Chờ thêm 2 giây để đảm bảo các script (như UpgradeManager) được khởi tạo
         yield return new WaitForSeconds(2f);
-        // Ẩn giao diện của StoreScene (giả sử root UI của StoreScene có tên "StoreCanvas")
+        // Ẩn giao diện của StoreScene (giả sử root UI của StoreScene có tên "StoreCanvas").
         GameObject storeRoot = GameObject.Find("StoreCanvas");
         if (storeRoot != null) {
             storeRoot.SetActive(false);
